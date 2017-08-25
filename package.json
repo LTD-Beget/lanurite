@@ -1,0 +1,30 @@
+{
+  "name": "lanurite",
+  "description": "Library for Models and Collection use in JS worlds",
+  "url": "https://github.com/PxyUp/lanurite",
+  "keywords": [
+    "model",
+    "view",
+    "controller",
+    "router",
+    "server",
+    "client",
+    "browser"
+  ],
+  "author": "Yuriy Panarin",
+  "dependencies": {
+    "lodash": "4.17.4",
+    "typescript": "2.5.0",
+    "@types/lodash": "4.14.74"
+  },
+  "devDependencies":{
+    "webpack": "3.5.5"
+  }
+  "main": "src/lanurite.js",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PxyUp/lanurite.git"
+  }
+}

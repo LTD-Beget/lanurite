@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "module": "umd",
+    "target": "es5",
+    "sourceMap": false,
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "declaration": false,
+    "out": "dist/lanurite.js"
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "compileOnSave": true
+}

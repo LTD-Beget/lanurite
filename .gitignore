@@ -1,0 +1,6 @@
+*.map.js
+.idea
+node_modules/
+!dist/lunarite.js
+dist/**/*.js
+dist/**/*.js.map
