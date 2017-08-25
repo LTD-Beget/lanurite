@@ -16,9 +16,11 @@ export class Collections implements baseCollection {
     _init(array) {
         array.forEach((object) => {
             if (object instanceof Models) {
+                object._setCollection(this);
                 return this._models[object.get("l_id")] = object
             }
             let model = new Models(object);
+            model._setCollection(this);
             this._models[model.get("l_id")] = model
         })
     }
