@@ -28,8 +28,8 @@ class Collections implements baseCollection {
     add(model: baseModel) {
         if (_.isUndefined(this._models[model.get("l_id")])) {
             this._models[model.get("l_id")] = model;
-            this.trigger("add", model);
             model._setCollection(this);
+            this.trigger("add", model);
             return true
         }
         return false
@@ -38,8 +38,8 @@ class Collections implements baseCollection {
     remove(model: baseModel) {
         if (!_.isUndefined(this._models[model.get("l_id")])) {
             delete this._models[model.get("l_id")];
-            this.trigger("remove", model);
             model._unsetCollection();
+            this.trigger("remove", model);
             return true
         }
         return false

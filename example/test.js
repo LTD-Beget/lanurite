@@ -5,13 +5,15 @@
 
 
 let model = new lanurite.Models({name: "Yura"});
+document.getElementById("test").innerHTML = model.get("name");
 
-let collect = new lanurite.Collections([model]);
+model.on("change", function (e){
+    console.log(e)
+    document.getElementById("test").innerText = model.get("name");
+})
 
-collect.has(model);
+let collection = new lanurite.Collections();
 
-model.on("set", (el) => {
-    console.log(el)
-});
-
-model.set("surname", "test");
+collection.on("add", function(model){
+    document.getElementById("collection").innerHTML+=model.get("l_id") + "<br>"
+})

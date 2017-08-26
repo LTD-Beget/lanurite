@@ -8,7 +8,7 @@ class Models implements baseModel {
 
     constructor(obj: any = {}) {
         this._events = {};
-        this._model = _.assign({}, {l_id: _.uniqueId("lr_"), collection: {}}, obj)
+        this._model = _.assign({}, {l_id: _.uniqueId("lr_"), collection: null}, obj)
     }
 
 
@@ -17,8 +17,14 @@ class Models implements baseModel {
     }
 
     set(key: string, value: any) {
-        this.trigger("set", {name: key, value: value});
-        return this._model[key] = value;
+        if (this.hasProperty(key)) {
+            let oldValue = this.get(key)
+            this._model[key] = value;
+            this.trigger("change", {name: key, value: value, oldValue: oldValue});
+        } else {
+            this._model[key] = value;
+            this.trigger("set", {name: key, value: value});
+        }
     }
 
     hasProperty(key: string) {
@@ -45,11 +51,15 @@ class Models implements baseModel {
     }
 
     _unsetCollection(){
-        this._model["collection"] = {}
+        this._model["collection"] = null
     }
 
     _setCollection(collection: baseCollection) {
         this._model["collection"] = collection;
+    }
+
+    getCollection(){
+        return this.get("collection")
     }
 }
 export {Models}
