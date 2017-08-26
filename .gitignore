@@ -2,6 +2,7 @@
 .idea
 node_modules/
 src/**/*.js
+src/**/*.js.map
 dist/**/*.js
 dist/**/*.js.map
 !dist/lanurite.js

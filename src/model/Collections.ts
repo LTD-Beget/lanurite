@@ -2,13 +2,13 @@ import {baseCollection} from "../base/collection";
 import {Models} from "./Models";
 import * as _ from "lodash";
 import {baseModel} from "../base/model";
-class Collections implements baseCollection {
+import {EventsLr} from "../events/Events";
+class Collections extends EventsLr implements baseCollection {
     private _models: any;
-    private _events: any;
 
     constructor(array: Array<any> = []) {
+        super()
         this._models = {};
-        this._events = {};
         this._init(array)
 
     }
@@ -45,28 +45,9 @@ class Collections implements baseCollection {
         return false
     }
 
-    on(eventName: string, handler: any) {
-        if (_.isUndefined(this._events[eventName])) {
-            return this._events[eventName] = [handler]
-        }
-        this._events[eventName].push(handler)
-    }
-
 
     has(model: baseModel) {
         return !_.isUndefined(this._models[model.get("l_id")])
-    }
-
-    off(eventName: string) {
-        delete this._events[eventName];
-    }
-
-    trigger(eventName: string, eventParams: any = {}) {
-        if (!_.isUndefined(this._events[eventName])) {
-            this._events[eventName].forEach((handler) => {
-                handler(eventParams)
-            })
-        }
     }
 
     clear() {
