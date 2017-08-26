@@ -1,10 +1,10 @@
 import {baseEvents} from "../base/events";
 import * as _ from "lodash";
-class EventsLr implements baseEvents{
+class EventsLr implements baseEvents {
 
     public _events: any;
 
-    constructor(){
+    constructor() {
         this._events = {};
     }
 

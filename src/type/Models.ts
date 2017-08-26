@@ -2,12 +2,12 @@ import {baseModel} from "../base/model";
 import * as _ from "lodash";
 import {baseCollection} from "../base/collection";
 import {EventsLr} from "../events/Events";
-class Models extends EventsLr implements baseModel{
+class Models extends EventsLr implements baseModel {
 
     private _model: any;
 
     constructor(obj: any = {}) {
-        super()
+        super();
         this._model = _.assign({}, {l_id: _.uniqueId("lr_"), collection: null}, obj)
     }
 
@@ -32,7 +32,7 @@ class Models extends EventsLr implements baseModel{
     }
 
 
-    _unsetCollection(){
+    _unsetCollection() {
         this._model["collection"] = null
     }
 
@@ -40,7 +40,7 @@ class Models extends EventsLr implements baseModel{
         this._model["collection"] = collection;
     }
 
-    getCollection(){
+    getCollection() {
         return this.get("collection")
     }
 }

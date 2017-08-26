@@ -1,5 +1,5 @@
 import {baseModel} from "./model";
-export interface baseCollection{
+export interface baseCollection {
     add(model: baseModel): boolean
     remove(model: baseModel): boolean
     clear(): void

@@ -7,7 +7,7 @@ class Collections extends EventsLr implements baseCollection {
     private _models: any;
 
     constructor(array: Array<any> = []) {
-        super()
+        super();
         this._models = {};
         this._init(array)
 
@@ -51,11 +51,7 @@ class Collections extends EventsLr implements baseCollection {
     }
 
     clear() {
-
-        Object.keys(this._events).forEach((event) => {
-            this.off(event)
-        });
-
+        this.trigger("clear");
         Object.keys(this._models).forEach((key) => {
             this._models[key]._unsetCollection();
             delete this._models[key];

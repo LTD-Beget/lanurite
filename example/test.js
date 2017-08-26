@@ -21,3 +21,7 @@ let collection = new lanurite.Collections();
 collection.on("add", function(model){
     document.getElementById("collection").innerHTML+=model.get("name") + "<br>"
 })
+
+collection.on("clear", function (){
+    document.getElementById("collection").innerHTML = "";
+});
