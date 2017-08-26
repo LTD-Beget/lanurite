@@ -2,11 +2,11 @@ import {baseCollection} from "../base/collection";
 import {Models} from "./Models";
 import * as _ from "lodash";
 import {baseModel} from "../base/model";
-export class Collections implements baseCollection {
-    _models: any;
-    _events: any;
+class Collections implements baseCollection {
+    private _models: any;
+    private _events: any;
 
-    constructor(array: Array <any>= []) {
+    constructor(array: Array<any> = []) {
         this._models = {};
         this._events = {};
         this._init(array)
@@ -49,7 +49,7 @@ export class Collections implements baseCollection {
         if (_.isUndefined(this._events[eventName])) {
             return this._events[eventName] = [handler]
         }
-        return this._events[eventName].push[handler]
+        this._events[eventName].push(handler)
     }
 
 
@@ -70,6 +70,11 @@ export class Collections implements baseCollection {
     }
 
     clear() {
+
+        Object.keys(this._events).forEach((event) => {
+            this.off(event)
+        });
+
         Object.keys(this._models).forEach((key) => {
             this._models[key]._unsetCollection();
             delete this._models[key];
@@ -77,3 +82,5 @@ export class Collections implements baseCollection {
 
     }
 }
+
+export {Collections}

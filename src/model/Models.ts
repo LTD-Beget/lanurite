@@ -1,10 +1,10 @@
 import {baseModel} from "../base/model";
 import * as _ from "lodash";
 import {baseCollection} from "../base/collection";
-export class Models implements baseModel {
+class Models implements baseModel {
 
-    _model: any;
-    _events: any;
+    private _model: any;
+    private _events: any;
 
     constructor(obj: any = {}) {
         this._events = {};
@@ -29,7 +29,7 @@ export class Models implements baseModel {
         if (_.isUndefined(this._events[eventName])) {
             return this._events[eventName] = [handler]
         }
-        return this._events[eventName].push[handler]
+        this._events[eventName].push(handler)
     }
 
     off(eventName: string) {
@@ -52,3 +52,4 @@ export class Models implements baseModel {
         this._model["collection"] = collection;
     }
 }
+export {Models}

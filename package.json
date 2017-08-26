@@ -17,11 +17,12 @@
     "typescript": "2.5.0",
     "@types/lodash": "4.14.74"
   },
-  "devDependencies":{
+  "devDependencies": {
+    "ts-loader": "2.3.3",
     "webpack": "3.5.5"
-  }
+  },
   "main": "src/lanurite.js",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "license": "MIT",
   "repository": {
     "type": "git",

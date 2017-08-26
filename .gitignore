@@ -1,6 +1,8 @@
 *.map.js
 .idea
 node_modules/
+package-lock.json
+src/**/*.js
 !dist/lunarite.js
 dist/**/*.js
 dist/**/*.js.map
