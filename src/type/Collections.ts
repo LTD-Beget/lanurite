@@ -58,6 +58,29 @@ class Collections extends EventsLr implements baseCollection {
         })
 
     }
+
+    filter(predicate){
+        return _.values(this._models).filter(predicate)
+    }
+
+    map(predicate){
+        return _.values(this._models).map(predicate)
+    }
+
+    getById(id){
+        if (!_.isUndefined(this._models[id])){
+            return this._models[id]
+        }
+        return null;
+    }
+
+    find(predicate, startIndex = 0){
+        return _.find(_.values(this._models), predicate, startIndex);
+    }
+
+    reduce(predicate, accum = 0){
+        return _.values(this._models).reduce(predicate, accum)
+    }
 }
 
 export {Collections}
