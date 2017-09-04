@@ -12,7 +12,7 @@ class Lanurite {
     }
 }
 
-export {Lanurite};
+export = Lanurite
 
 
 if (typeof window != "undefined") {
