@@ -6,3 +6,4 @@ src/**/*.js.map
 dist/**/*.js
 dist/**/*.js.map
 !dist/lanurite.js
+example/testTS.js

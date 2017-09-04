@@ -3,7 +3,7 @@
  */
 
 
-let model = new lanurite.Models({name: "Yura"});
+let model = new Lanurite.models({name: "Yura"});
 document.getElementById("test").innerHTML = model.get("name");
 
 model.on("change", function (e) {
@@ -15,7 +15,7 @@ model.on("change", function (e) {
 
 })
 
-let collection = new lanurite.Collections();
+let collection = new Lanurite.collections();
 
 collection.on("add", function (model) {
     document.getElementById("collection").innerHTML += model.get("name") + "<br>"

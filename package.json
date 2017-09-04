@@ -22,6 +22,7 @@
     "webpack": "3.5.5"
   },
   "main": "dist/lanurite.js",
+  "typings": "src/lanurite.d.ts",
   "version": "1.0.14",
   "license": "MIT",
   "repository": {
