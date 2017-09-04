@@ -12,8 +12,11 @@ class Lanurite {
     }
 }
 
-((root) => {
-    root["lanurite"] = Lanurite;
-})(window);
-
 export {Lanurite};
+
+
+if (window !== void 0) {
+    ((root) => {
+        root["lanurite"] = Lanurite;
+    })(window);
+}
