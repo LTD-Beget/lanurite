@@ -15,7 +15,7 @@ class Lanurite {
 export {Lanurite};
 
 
-if (window !== void 0) {
+if (typeof window != "undefined") {
     ((root) => {
         root["lanurite"] = Lanurite;
     })(window);
