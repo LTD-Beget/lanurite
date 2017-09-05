@@ -6,16 +6,16 @@ import {EventsLr} from "../events/Events";
 class Collections extends EventsLr implements baseCollection {
     private _models: any;
 
-    constructor(array: Array<any> = []) {
+    constructor(array: Array<T> = []) {
         super();
         this._models = {};
         this._init(array)
 
     }
 
-    _init(array: Array<any>) {
+    _init(array: Array<T>) {
         array.forEach((object) => {
-            if (object instanceof Models) {
+            if (this._isModel(object)) {
                 object._setCollection(this);
                 return this._models[object.get("l_id")] = object
             }
@@ -59,31 +59,61 @@ class Collections extends EventsLr implements baseCollection {
 
     }
 
-    filter(predicate: any){
+    filter(predicate: any) {
         return _.values(this._models).filter(predicate)
     }
 
-    map(predicate: any){
+    map(predicate: any) {
         return _.values(this._models).map(predicate)
     }
 
-    getById(id: string){
-        if (!_.isUndefined(this._models[id])){
+    getById(id: string) {
+        if (!_.isUndefined(this._models[id])) {
             return this._models[id]
         }
         return null;
     }
 
-    find(predicate: any, startIndex:number = 0){
+    find(predicate: any, startIndex: number = 0) {
         return _.find(_.values(this._models), predicate, startIndex);
     }
 
-    reduce(predicate: any, accum: any = 0){
+    reduce(predicate: any, accum: any = 0) {
         return _.values(this._models).reduce(predicate, accum)
     }
 
-    getAll(){
+    getAll() {
         return _.values(this._models)
+    }
+
+    _isModel(object: any) {
+        return object instanceof Models
+    }
+
+    merge(collection: Array<T> | baseCollection) {
+        if (_.isArray(collection)) {
+            collection.forEach((object) => {
+                if (this._isModel(object)) {
+                    return this.add(object);
+                }
+                let model = new Models(object);
+                this.add(model);
+            })
+        } else {
+            collection.getAll().forEach((model) => {
+                this.add(model);
+            })
+        }
+    }
+
+    reset(array: Array<T> = []){
+        Object.keys(this._models).forEach((key) => {
+            this._models[key]._unsetCollection();
+            delete this._models[key];
+        });
+
+        this._init(array);
+        this.trigger("reset");
     }
 }
 

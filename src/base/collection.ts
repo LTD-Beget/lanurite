@@ -6,10 +6,12 @@ export interface baseCollection extends baseEvents {
     remove(model: baseModel): boolean
     clear(): void
     has(model: baseModel): boolean
-    getAll(): Array<any>
-    filter(predicate: any): Array<any>
-    map(predicate: any): Array<any>
+    getAll(): Array<T>
+    merge(collection: Array<T> | baseCollection): void
+    filter(predicate: any): Array<T>
+    map(predicate: any): Array<T>
     reduce(predicate: any, accum: any): any
     getById(id: string): baseModel | null
-    find(predicate: any, start: Number): any | undefined
+    find(predicate: any, start: Number): baseModel | undefined
+    reset(array: Array<T>): void
 }
