@@ -74,7 +74,7 @@ class Collections extends EventsLr implements baseCollection {
         return null;
     }
 
-    find(predicate: any, startIndex: number = 0): baseModel | undefined {
+    find(predicate: any, startIndex: number = 0) {
         return _.find(_.values(this._models), predicate, startIndex);
     }
 
