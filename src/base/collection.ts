@@ -12,6 +12,6 @@ export interface baseCollection extends baseEvents {
     map(predicate: any): Array<any>
     reduce(predicate: any, accum: any): any
     getById(id: string): baseModel | null
-    find(predicate: any, start: Number): baseModel | undefined
+    find(predicate: any, start: Number): any
     reset(array: Array<any>): void
 }
