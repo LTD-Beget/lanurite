@@ -24,3 +24,7 @@ collection.on("add", function (model) {
 collection.on("clear", function () {
     document.getElementById("collection").innerHTML = "";
 });
+
+collection.on("reset", function () {
+    document.getElementById("collection").innerHTML = "";
+});
