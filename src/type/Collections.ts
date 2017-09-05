@@ -6,14 +6,14 @@ import {EventsLr} from "../events/Events";
 class Collections extends EventsLr implements baseCollection {
     private _models: any;
 
-    constructor(array: Array<T> = []) {
+    constructor(array: Array<any> = []) {
         super();
         this._models = {};
         this._init(array)
 
     }
 
-    _init(array: Array<T>) {
+    _init(array: Array<any>) {
         array.forEach((object) => {
             if (this._isModel(object)) {
                 object._setCollection(this);
@@ -74,7 +74,7 @@ class Collections extends EventsLr implements baseCollection {
         return null;
     }
 
-    find(predicate: any, startIndex: number = 0) {
+    find(predicate: any, startIndex: number = 0): baseModel | undefined {
         return _.find(_.values(this._models), predicate, startIndex);
     }
 
@@ -90,7 +90,7 @@ class Collections extends EventsLr implements baseCollection {
         return object instanceof Models
     }
 
-    merge(collection: Array<T> | baseCollection) {
+    merge(collection: Array<any> | baseCollection) {
         if (_.isArray(collection)) {
             collection.forEach((object) => {
                 if (this._isModel(object)) {
@@ -106,7 +106,7 @@ class Collections extends EventsLr implements baseCollection {
         }
     }
 
-    reset(array: Array<T> = []){
+    reset(array: Array<any> = []) {
         Object.keys(this._models).forEach((key) => {
             this._models[key]._unsetCollection();
             delete this._models[key];
