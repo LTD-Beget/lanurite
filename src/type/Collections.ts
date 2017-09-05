@@ -13,7 +13,7 @@ class Collections extends EventsLr implements baseCollection {
 
     }
 
-    _init(array) {
+    _init(array: Array<any>) {
         array.forEach((object) => {
             if (object instanceof Models) {
                 object._setCollection(this);
@@ -59,27 +59,31 @@ class Collections extends EventsLr implements baseCollection {
 
     }
 
-    filter(predicate){
+    filter(predicate: any){
         return _.values(this._models).filter(predicate)
     }
 
-    map(predicate){
+    map(predicate: any){
         return _.values(this._models).map(predicate)
     }
 
-    getById(id){
+    getById(id: string){
         if (!_.isUndefined(this._models[id])){
             return this._models[id]
         }
         return null;
     }
 
-    find(predicate, startIndex = 0){
+    find(predicate: any, startIndex:number = 0){
         return _.find(_.values(this._models), predicate, startIndex);
     }
 
-    reduce(predicate, accum = 0){
+    reduce(predicate: any, accum: any = 0){
         return _.values(this._models).reduce(predicate, accum)
+    }
+
+    getAll(){
+        return _.values(this._models)
     }
 }
 

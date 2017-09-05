@@ -5,6 +5,7 @@ export interface baseCollection extends baseEvents {
     remove(model: baseModel): boolean;
     clear(): void;
     has(model: baseModel): boolean;
+    getAll(): Array<any>;
     filter(predicate: any): Array<any>;
     map(predicate: any): Array<any>;
     reduce(predicate: any, accum: any): any;
