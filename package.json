@@ -1,7 +1,7 @@
 {
   "name": "lanurite",
   "description": "Library for Models and Collection use in JS worlds",
-  "url": "https://github.com/PxyUp/lanurite",
+  "url": "https://github.com/LTD-Beget/lanurite",
   "keywords": [
     "model",
     "view",
@@ -23,10 +23,10 @@
   },
   "main": "dist/lanurite.js",
   "typings": "src/lanurite.d.ts",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/PxyUp/lanurite.git"
+    "url": "https://github.com/LTD-Beget/lanurite.git"
   }
 }
