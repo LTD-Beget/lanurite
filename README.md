@@ -20,5 +20,5 @@ console.log(Lanurite.version)
 
 **For use in NodeJS**
 ```
-var t = require("../dist/lanurite.js");
+var t = require("lanurite.js");
 console.log(t.version)
