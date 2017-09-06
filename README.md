@@ -13,7 +13,7 @@ Library for Models and Collection use in JS worlds
 **For use in TypeScript**
 
 ```
-import Lanurite = require("../src/lanurite")
+import * as Lanurite from "lanurite"
 console.log(Lanurite.version)
 
 ```
