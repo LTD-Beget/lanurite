@@ -7,6 +7,7 @@ echo "=> Upgrade version"
 VERSION=$(npm version --no-git-tag-version patch)
 
 echo "=> Build ${VERSION} with webpack"
+tsc
 webpack
 
 echo "=> Commit all changes in ${VERSION}"

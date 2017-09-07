@@ -6,5 +6,6 @@ declare class Model extends Event implements IModel {
     get(key: string): any;
     set(key: string, value: any): void;
     hasProperty(key: string): boolean;
+    toJSON(): any;
 }
 export { Model };
