@@ -14,4 +14,11 @@ export interface ICollection {
     getById(id: string): IModel | null
     find(predicate: any, start: Number): any
     reset(array: Array<any>): void
+    getLength(): number
+    each(predicate: any): void
+    toJSON(): any;
+    sortBy(predicate: any): any
+    toArray(): Array<any>
+    chunk(size: number): any
+    countBy(predicate: any): any
 }

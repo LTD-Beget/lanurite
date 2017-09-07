@@ -7,7 +7,7 @@ class Model extends Event implements IModel{
 
     constructor(obj: any = {}) {
         super();
-        this._model = _.assign({}, {l_id: _.uniqueId("lr_"), collection: null}, obj)
+        this._model = _.assign({}, {l_id: _.uniqueId("lr_")}, obj)
     }
 
 
@@ -28,6 +28,10 @@ class Model extends Event implements IModel{
 
     hasProperty(key: string) {
         return !_.isUndefined(this._model[key])
+    }
+
+    toJSON(): any{
+        return _.clone(this._model);
     }
 
 }
