@@ -15,3 +15,6 @@ git add --all && git commit -m "changes ${VERSION}"
 echo "=> Create git tags and push to origin"
 git tag ${VERSION}
 git push origin ${BRANCH} && git push origin ${VERSION}
+
+echo "=> Release to npm repo"
+npm publish
