@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-BRANCH=$1
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
 echo "=> Upgrade version"
 VERSION=$(npm version --no-git-tag-version patch)

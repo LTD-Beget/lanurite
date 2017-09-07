@@ -12,7 +12,7 @@ class Event implements IEvent{
     }
 
     off(eventName: string) {
-        this._events[eventName] = undefined;
+        delete this._events[eventName];
     }
 
     trigger(eventName: string, eventParams: any = {}) {

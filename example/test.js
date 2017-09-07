@@ -26,5 +26,14 @@ collection.on("clear", function () {
 });
 
 collection.on("reset", function () {
-    document.getElementById("collection").innerHTML = "";
+    getCollectionDOM();
 });
+
+getCollectionDOM();
+
+function getCollectionDOM() {
+    document.getElementById("collection").innerHTML = "";
+    collection.each((el) => {
+        document.getElementById("collection").innerHTML += el.get("name") + "<br>"
+    });
+}

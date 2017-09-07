@@ -16,6 +16,7 @@ class Collection extends Event implements ICollection {
     _init(array: Array<any>) {
         array.forEach((object) => {
             if (this._isModel(object)) {
+                console.log("old model")
                 return this._models[object.get("l_id")] = object
             }
             let model = new Model(object);
@@ -34,7 +35,7 @@ class Collection extends Event implements ICollection {
 
     remove(model: IModel) {
         if (!_.isUndefined(this._models[model.get("l_id")])) {
-            this._models[model.get("l_id")] = undefined;
+            delete this._models[model.get("l_id")]
             this.trigger("remove", model);
             return true
         }
@@ -47,19 +48,16 @@ class Collection extends Event implements ICollection {
     }
 
     clear() {
+        this._clearCollection();
         this.trigger("clear");
-        Object.keys(this._models).forEach((key) => {
-            this._models[key] = undefined;
-        })
-
     }
 
     filter(predicate: any): Array<any> {
-        return _.values(this._models).filter(predicate)
+        return this.getAll().filter(predicate)
     }
 
     map(predicate: any): Array<any> {
-        return _.values(this._models).map(predicate)
+        return this.getAll().map(predicate)
     }
 
     getById(id: string) {
@@ -70,11 +68,11 @@ class Collection extends Event implements ICollection {
     }
 
     find(predicate: any, startIndex: number = 0): any {
-        return _.find(_.values(this._models), predicate, startIndex);
+        return _.find(this.getAll(), predicate, startIndex);
     }
 
     reduce(predicate: any, accum: any = 0): any {
-        return _.values(this._models).reduce(predicate, accum)
+        return this.getAll().reduce(predicate, accum)
     }
 
     getAll(): Array<any> {
@@ -83,6 +81,10 @@ class Collection extends Event implements ICollection {
 
     _isModel(object: any) {
         return object instanceof Model
+    }
+
+    each(predicate: any){
+        return this.getAll().forEach(predicate)
     }
 
     merge(collection: Array<any> | ICollection) {
@@ -102,12 +104,41 @@ class Collection extends Event implements ICollection {
     }
 
     reset(array: Array<any> = []) {
-        Object.keys(this._models).forEach((key) => {
-            this._models[key] = undefined;
-        });
-
+        this._clearCollection();
         this._init(array);
         this.trigger("reset");
+    }
+
+    _clearCollection() {
+        Object.keys(this._models).forEach((key) => {
+            delete this._models[key]
+        });
+    }
+
+    getLength(): number {
+        return Object.keys(this._models).length
+    }
+
+    toJSON(){
+        return this.map((el) =>{
+            return el.toJSON()
+        })
+    }
+
+    sortBy(predicate: any){
+        this.reset(this.getAll().sort(predicate))
+    }
+
+    toArray(): Array<any>{
+        return this.getAll()
+    }
+
+    chunk(size: number = 1): any{
+        return _.chunk(this.getAll(), size)
+    }
+
+    countBy(predicate: any){
+        return _.countBy(this.getAll(), predicate);
     }
 }
 
