@@ -1,12 +1,8 @@
-import {baseEvents} from "../base/events";
 import * as _ from "lodash";
-class EventsLr implements baseEvents {
+import {IEvent} from "../interfaces/IEvent";
+class Event implements IEvent{
 
-    public _events: any;
-
-    constructor() {
-        this._events = {};
-    }
+    public _events: any = {};
 
     on(eventName: string, handler: any) {
         if (_.isUndefined(this._events[eventName])) {
@@ -16,7 +12,7 @@ class EventsLr implements baseEvents {
     }
 
     off(eventName: string) {
-        delete this._events[eventName];
+        this._events[eventName] = undefined;
     }
 
     trigger(eventName: string, eventParams: any = {}) {
@@ -28,4 +24,4 @@ class EventsLr implements baseEvents {
     }
 }
 
-export {EventsLr}
+export {Event}
