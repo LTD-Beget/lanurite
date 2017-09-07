@@ -1,44 +1,40 @@
-import {baseCollection} from "../base/collection";
-import {Models} from "./Models";
 import * as _ from "lodash";
-import {baseModel} from "../base/model";
-import {EventsLr} from "../events/Events";
-class Collections extends EventsLr implements baseCollection {
-    private _models: any;
+import {ICollection} from "../interfaces/ICollection";
+import {Event} from "./Event"
+import {IModel} from "../interfaces/IModel";
+import {Model} from "./Model";
+
+
+class Collection extends Event implements ICollection {
+    private _models: any = {};
 
     constructor(array: Array<any> = []) {
         super();
-        this._models = {};
         this._init(array)
-
     }
 
     _init(array: Array<any>) {
         array.forEach((object) => {
             if (this._isModel(object)) {
-                object._setCollection(this);
                 return this._models[object.get("l_id")] = object
             }
-            let model = new Models(object);
-            model._setCollection(this);
+            let model = new Model(object);
             this._models[model.get("l_id")] = model
         })
     }
 
-    add(model: baseModel) {
+    add(model: IModel) {
         if (_.isUndefined(this._models[model.get("l_id")])) {
             this._models[model.get("l_id")] = model;
-            model._setCollection(this);
             this.trigger("add", model);
             return true
         }
         return false
     }
 
-    remove(model: baseModel) {
+    remove(model: IModel) {
         if (!_.isUndefined(this._models[model.get("l_id")])) {
-            delete this._models[model.get("l_id")];
-            model._unsetCollection();
+            this._models[model.get("l_id")] = undefined;
             this.trigger("remove", model);
             return true
         }
@@ -46,15 +42,14 @@ class Collections extends EventsLr implements baseCollection {
     }
 
 
-    has(model: baseModel) {
+    has(model: IModel) {
         return !_.isUndefined(this._models[model.get("l_id")])
     }
 
     clear() {
         this.trigger("clear");
         Object.keys(this._models).forEach((key) => {
-            this._models[key]._unsetCollection();
-            delete this._models[key];
+            this._models[key] = undefined;
         })
 
     }
@@ -87,29 +82,28 @@ class Collections extends EventsLr implements baseCollection {
     }
 
     _isModel(object: any) {
-        return object instanceof Models
+        return object instanceof Model
     }
 
-    merge(collection: Array<any> | baseCollection) {
+    merge(collection: Array<any> | ICollection) {
         if (_.isArray(collection)) {
-            collection.forEach((object) => {
+            return collection.forEach((object) => {
                 if (this._isModel(object)) {
                     return this.add(object);
                 }
-                let model = new Models(object);
-                this.add(model);
-            })
-        } else {
-            collection.getAll().forEach((model) => {
+                let model = new Model(object);
                 this.add(model);
             })
         }
+        collection.getAll().forEach((model) => {
+            this.add(model);
+        })
+
     }
 
     reset(array: Array<any> = []) {
         Object.keys(this._models).forEach((key) => {
-            this._models[key]._unsetCollection();
-            delete this._models[key];
+            this._models[key] = undefined;
         });
 
         this._init(array);
@@ -117,4 +111,5 @@ class Collections extends EventsLr implements baseCollection {
     }
 }
 
-export {Collections}
+
+export {Collection}

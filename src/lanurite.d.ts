@@ -1,10 +1,10 @@
 /// <reference types="lodash" />
-import { Models } from "./type/Models";
-import { Collections } from "./type/Collections";
+import { Model } from "./classes/Model";
+import { Collection } from "./classes/Collection";
 import * as _ from "lodash";
 declare const _default: {
-    models: typeof Models;
-    collections: typeof Collections;
+    Model: typeof Model;
+    Collection: typeof Collection;
     version: string;
     lodash: _.LoDashStatic;
 };

@@ -1,8 +1,7 @@
-import {baseModel} from "../base/model";
 import * as _ from "lodash";
-import {baseCollection} from "../base/collection";
-import {EventsLr} from "../events/Events";
-class Models extends EventsLr implements baseModel {
+import {IModel} from "../interfaces/IModel";
+import {Event} from "./Event"
+class Model extends Event implements IModel{
 
     private _model: any;
 
@@ -31,17 +30,5 @@ class Models extends EventsLr implements baseModel {
         return !_.isUndefined(this._model[key])
     }
 
-
-    _unsetCollection() {
-        this._model["collection"] = null
-    }
-
-    _setCollection(collection: baseCollection) {
-        this._model["collection"] = collection;
-    }
-
-    getCollection() {
-        return this.get("collection")
-    }
 }
-export {Models}
+export {Model}
