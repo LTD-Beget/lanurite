@@ -16,7 +16,6 @@ class Collection extends Event implements ICollection {
     _init(array: Array<any>) {
         array.forEach((object) => {
             if (this._isModel(object)) {
-                console.log("old model")
                 return this._models[object.get("l_id")] = object
             }
             let model = new Model(object);
