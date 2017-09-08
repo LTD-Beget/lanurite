@@ -1,6 +1,9 @@
 # Lanurite
 Library for Models and Collection use in JS worlds
 
+Documentation:
+https://pxyup.github.io/lanurite/
+
 [![NPM](https://nodei.co/npm/lanurite.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/lanurite/)
 
 **For use in browser**
@@ -9,7 +12,7 @@ Library for Models and Collection use in JS worlds
 
 **For use in TypeScript**
 
-```
+```typescript
 import * as Lanurite from "lanurite"
 console.log(Lanurite.version)
 
@@ -17,7 +20,7 @@ console.log(Lanurite.version)
 
 **For use in NodeJS**
 
-```
+```javascript
 var Lanurite = require("lanurite");
 console.log(Lanurite.version)
 ```
