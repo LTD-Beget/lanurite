@@ -1,5 +1,5 @@
 export interface IEvent {
-    on(event: string, handler: any): any;
-    trigger(eventName: string, event: any): any;
-    off(event: string): any;
+    on(event: string, handler: any): void;
+    trigger(eventName: string, event: any): void;
+    off(event: string): void;
 }

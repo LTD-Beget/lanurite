@@ -15,6 +15,9 @@ tslint 'src/**/*.ts' --exclude '**/*.d.ts'
 echo "=> Build ${VERSION} with webpack"
 webpack
 
+echo "=> Add file .nojekyll for GH-Page"
+touch docs/.nojekyll
+
 echo "=> Commit all changes in ${VERSION}"
 git add --all && git commit -m "changes ${VERSION}"
 
