@@ -3,17 +3,13 @@
  */
 
 
-let model = new Lanurite.Model({name: "Yura"});
+let model = new Lanurite.Model({name: "Robot"});
 document.getElementById("test").innerHTML = model.get("name");
 
 model.on("change", function (e) {
     document.getElementById("test").innerHTML = model.get("name")
-    if (model.get("name") == "Yura") {
-        return alert("Privet")
-    }
-    return alert("Papa")
-
-})
+    model.off("change", log)
+});
 
 let collection = new Lanurite.Collection();
 
@@ -25,11 +21,17 @@ collection.on("clear", function () {
     document.getElementById("collection").innerHTML = "";
 });
 
+model.on("change", log);
+
 collection.on("reset", function () {
     getCollectionDOM();
 });
 
 getCollectionDOM();
+
+function log(event){
+    console.log(event)
+}
 
 function getCollectionDOM() {
     document.getElementById("collection").innerHTML = "";

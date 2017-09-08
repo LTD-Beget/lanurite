@@ -1,4 +1,5 @@
 let webpack = require("webpack");
+let TypedocWebpackPlugin = require('typedoc-webpack-plugin');
 
 module.exports = {
     entry: './src/lanurite.ts',
@@ -28,7 +29,14 @@ module.exports = {
         new webpack.DefinePlugin({
             __VERSION__: JSON.stringify(require("./package.json").version),
         }),
-        new webpack.optimize.UglifyJsPlugin({minimize: true})
+        new webpack.optimize.UglifyJsPlugin({minimize: true}),
+        new TypedocWebpackPlugin({
+            out: './docs',
+            module: 'umd',
+            exclude: '**/node_modules/**/*.*',
+            experimentalDecorators: true,
+            excludeExternals: true
+        })
     ]
 };
 

@@ -1,8 +1,8 @@
 import { IEvent } from "../interfaces/IEvent";
 declare class Event implements IEvent {
-    _events: any;
+    protected _events: any;
     on(eventName: string, handler: any): any[];
-    off(eventName: string): void;
+    off(eventName: string, handler?: any): boolean;
     trigger(eventName: string, eventParams?: any): void;
 }
 export { Event };
