@@ -10,7 +10,7 @@ export interface ICollection {
     map(predicate: any): Array<any>;
     reduce(predicate: any, accum: any): any;
     getById(id: string): IModel | null;
-    find(predicate: any, start: Number): any;
+    find(predicate: any, start: number): any;
     reset(array: Array<any>): void;
     getLength(): number;
     each(predicate: any): void;

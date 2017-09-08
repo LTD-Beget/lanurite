@@ -1,12 +1,12 @@
-import * as _ from "lodash";
-import {IModel} from "../interfaces/IModel";
+import * as _ from "lodash"
+import {IModel} from "../interfaces/IModel"
 import {Event} from "./Event"
 class Model extends Event implements IModel {
 
-    private _model: any;
+    private _model: any
 
     constructor(obj: any = {}) {
-        super();
+        super()
         this._model = _.assign({}, {l_id: _.uniqueId("lr_")}, obj)
     }
 
@@ -16,7 +16,7 @@ class Model extends Event implements IModel {
      * @returns {any}
      */
 
-    get(key: string | number) {
+    public get(key: string | number) {
         return this._model[key]
     }
 
@@ -25,14 +25,14 @@ class Model extends Event implements IModel {
      * @param key
      * @param value
      */
-    set(key: string | number, value: any) {
+    public set(key: string | number, value: any) {
         if (this.has(key)) {
-            let oldValue = this.get(key)
-            this._model[key] = value;
-            this.trigger("change", {name: key, value: value, oldValue: oldValue});
+            const oldValue = this.get(key)
+            this._model[key] = value
+            this.trigger("change", {name: key, value, oldValue})
         } else {
-            this._model[key] = value;
-            this.trigger("set", {name: key, value: value});
+            this._model[key] = value
+            this.trigger("set", {name: key, value})
         }
     }
 
@@ -41,7 +41,7 @@ class Model extends Event implements IModel {
      * @param key
      * @returns {boolean}
      */
-    has(key: string | number) {
+    public has(key: string | number) {
         return !_.isUndefined(this._model[key])
     }
 
@@ -50,8 +50,8 @@ class Model extends Event implements IModel {
      * @returns {T}
      */
 
-    toJSON(): any {
-        return _.clone(this._model);
+    public toJSON(): any {
+        return _.clone(this._model)
     }
 
     /**
@@ -59,9 +59,10 @@ class Model extends Event implements IModel {
      * @param key
      * @returns {boolean}
      */
-    drop(key: string | number){
-        if (this.has(key)){
-            delete this._model[key];
+
+    public drop(key: string | number) {
+        if (this.has(key)) {
+            delete this._model[key]
             return true
         }
         return false

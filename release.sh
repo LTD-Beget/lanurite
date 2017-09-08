@@ -9,6 +9,9 @@ VERSION=$(npm version --no-git-tag-version patch)
 echo "=> Build ${VERSION} d.ts"
 tsc
 
+echo "=> Check ${VERSION} by TSLint"
+tslint 'src/**/*.ts' --exclude '**/*.d.ts'
+
 echo "=> Build ${VERSION} with webpack"
 webpack
 

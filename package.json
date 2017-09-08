@@ -36,7 +36,7 @@
   },
   "main": "dist/lanurite.js",
   "typings": "src/lanurite.d.ts",
-  "version": "1.0.32",
+  "version": "1.0.33",
   "license": "MIT",
   "repository": {
     "type": "git",

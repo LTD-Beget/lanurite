@@ -1,5 +1,5 @@
-import {IModel} from "./IModel";
-import {IEvent} from "./IEvent";
+import {IEvent} from "./IEvent"
+import {IModel} from "./IModel"
 export interface ICollection {
     add(model: IModel): boolean
     remove(model: IModel): boolean
@@ -11,11 +11,11 @@ export interface ICollection {
     map(predicate: any): Array<any>
     reduce(predicate: any, accum: any): any
     getById(id: string): IModel | null
-    find(predicate: any, start: Number): any
+    find(predicate: any, start: number): any
     reset(array: Array<any>): void
     getLength(): number
     each(predicate: any): void
-    toJSON(): any;
+    toJSON(): any
     sortBy(predicate: any): any
     toArray(): Array<any>
     chunk(size: number): Array<any>
