@@ -1,12 +1,14 @@
 /// <reference types="lodash" />
 import * as _ from "lodash";
 import { ICollection } from "../interfaces/ICollection";
-import { Event } from "./Event";
 import { IModel } from "../interfaces/IModel";
+import { Event } from "./Event";
 declare class Collection extends Event implements ICollection {
     private _models;
     constructor(array?: Array<any>);
     private _init(array);
+    private _isModel(object);
+    private _clearCollection();
     /**
      * Add model in collection, return True if model added or False if model already in collection
      * @param model
@@ -66,7 +68,6 @@ declare class Collection extends Event implements ICollection {
      * @returns {Array[Model]}
      */
     getAll(): Array<any>;
-    private _isModel(object);
     /**
      * Iterate collection with predicate
      * @param predicate - function
@@ -82,7 +83,6 @@ declare class Collection extends Event implements ICollection {
      * @param array
      */
     reset(array?: Array<any>): void;
-    private _clearCollection();
     /**
      * Get collection length
      * @returns {number}
@@ -110,15 +110,17 @@ declare class Collection extends Event implements ICollection {
      */
     chunk(size?: number): Array<any>;
     /**
-     * Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The corresponding value of each key is the number of times the key was returned by iteratee.
+     * Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The corresponding value of each key is the number
+     * of times the key was returned by iteratee.
      * @param predicate - function
      * @returns {Dictionary<number>}
      */
     countBy(predicate: any): _.Dictionary<number>;
     /**
-     * Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The order of grouped values is determined by the order they occur in collection. The corresponding value of each key is an array of elements responsible for generating the key.
+     * Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The order of grouped values is determined by the
+     * order they occur in collection. The corresponding value of each key is an array of elements responsible for generating the key.
      * @param predicate - function
-     * @returns {Dictionary<T[]>}
+     * @returns {Dictionary<Array<any>>}
      */
     groupBy(predicate: any): _.Dictionary<any[]>;
 }

@@ -1,15 +1,15 @@
-import * as _ from "lodash";
-import {ICollection} from "../interfaces/ICollection";
+import * as _ from "lodash"
+import {ICollection} from "../interfaces/ICollection"
+import {IModel} from "../interfaces/IModel"
 import {Event} from "./Event"
-import {IModel} from "../interfaces/IModel";
-import {Model} from "./Model";
-
+import {Model} from "./Model"
 
 class Collection extends Event implements ICollection {
-    private _models: any = {};
+
+    private _models: any = {}
 
     constructor(array: Array<any> = []) {
-        super();
+        super()
         this._init(array)
     }
 
@@ -18,8 +18,18 @@ class Collection extends Event implements ICollection {
             if (this._isModel(object)) {
                 return this._models[object.get("l_id")] = object
             }
-            let model = new Model(object);
+            const model = new Model(object)
             this._models[model.get("l_id")] = model
+        })
+    }
+
+    private _isModel(object: any) {
+        return object instanceof Model
+    }
+
+    private _clearCollection() {
+        Object.keys(this._models).forEach((key) => {
+            delete this._models[key]
         })
     }
 
@@ -29,10 +39,10 @@ class Collection extends Event implements ICollection {
      * @returns {boolean}
      */
 
-    add(model: IModel) {
+    public add(model: IModel) {
         if (_.isUndefined(this._models[model.get("l_id")])) {
-            this._models[model.get("l_id")] = model;
-            this.trigger("add", model);
+            this._models[model.get("l_id")] = model
+            this.trigger("add", model)
             return true
         }
         return false
@@ -44,10 +54,10 @@ class Collection extends Event implements ICollection {
      * @returns {boolean}
      */
 
-    remove(model: IModel) {
+    public remove(model: IModel) {
         if (!_.isUndefined(this._models[model.get("l_id")])) {
             delete this._models[model.get("l_id")]
-            this.trigger("remove", model);
+            this.trigger("remove", model)
             return true
         }
         return false
@@ -59,7 +69,7 @@ class Collection extends Event implements ICollection {
      * @returns {boolean}
      */
 
-    has(model: IModel) {
+    public has(model: IModel) {
         return !_.isUndefined(this._models[model.get("l_id")])
     }
 
@@ -67,9 +77,9 @@ class Collection extends Event implements ICollection {
      * Clear collection, remove all models, event will be save
      */
 
-    clear() {
-        this._clearCollection();
-        this.trigger("clear");
+    public clear() {
+        this._clearCollection()
+        this.trigger("clear")
     }
 
     /**
@@ -78,7 +88,7 @@ class Collection extends Event implements ICollection {
      * @returns {Array<any>}
      */
 
-    filter(predicate: any): Array<any> {
+    public filter(predicate: any): Array<any> {
         return this.getAll().filter(predicate)
     }
 
@@ -88,7 +98,7 @@ class Collection extends Event implements ICollection {
      * @returns {Array<any>}
      */
 
-    map(predicate: any): Array<any> {
+    public map(predicate: any): Array<any> {
         return this.getAll().map(predicate)
     }
 
@@ -98,11 +108,11 @@ class Collection extends Event implements ICollection {
      * @returns Model | null
      */
 
-    getById(id: string) {
+    public getById(id: string) {
         if (!_.isUndefined(this._models[id])) {
             return this._models[id]
         }
-        return null;
+        return null
     }
 
     /**
@@ -112,8 +122,8 @@ class Collection extends Event implements ICollection {
      * @returns {Model|undefined}
      */
 
-    find(predicate: any, startIndex: number = 0): any {
-        return _.find(this.getAll(), predicate, startIndex);
+    public find(predicate: any, startIndex: number = 0): any {
+        return _.find(this.getAll(), predicate, startIndex)
     }
 
     /**
@@ -123,7 +133,7 @@ class Collection extends Event implements ICollection {
      * @returns {any}
      */
 
-    reduce(predicate: any, accum: any = 0): any {
+    public reduce(predicate: any, accum: any = 0): any {
         return this.getAll().reduce(predicate, accum)
     }
 
@@ -132,12 +142,8 @@ class Collection extends Event implements ICollection {
      * @returns {Array[Model]}
      */
 
-    getAll(): Array<any> {
+    public getAll(): Array<any> {
         return _.values(this._models)
-    }
-
-    private _isModel(object: any) {
-        return object instanceof Model
     }
 
     /**
@@ -145,7 +151,7 @@ class Collection extends Event implements ICollection {
      * @param predicate - function
      */
 
-    each(predicate: any) {
+    public each(predicate: any) {
         return this.getAll().forEach(predicate)
     }
 
@@ -154,18 +160,18 @@ class Collection extends Event implements ICollection {
      * @param collection
      */
 
-    merge(collection: Array<any> | ICollection) {
+    public merge(collection: Array<any> | ICollection) {
         if (_.isArray(collection)) {
             return collection.forEach((object) => {
                 if (this._isModel(object)) {
-                    return this.add(object);
+                    return this.add(object)
                 }
-                let model = new Model(object);
-                this.add(model);
+                const model = new Model(object)
+                this.add(model)
             })
         }
         collection.getAll().forEach((model) => {
-            this.add(model);
+            this.add(model)
         })
 
     }
@@ -174,23 +180,17 @@ class Collection extends Event implements ICollection {
      * Reset collection with new data array, events will be save
      * @param array
      */
-    reset(array: Array<any> = []) {
-        this._clearCollection();
-        this._init(array);
-        this.trigger("reset");
-    }
-
-    private _clearCollection() {
-        Object.keys(this._models).forEach((key) => {
-            delete this._models[key]
-        });
+    public reset(array: Array<any> = []) {
+        this._clearCollection()
+        this._init(array)
+        this.trigger("reset")
     }
 
     /**
      * Get collection length
      * @returns {number}
      */
-    getLength(): number {
+    public getLength(): number {
         return Object.keys(this._models).length
     }
 
@@ -199,7 +199,7 @@ class Collection extends Event implements ICollection {
      * @returns {Array<any>}
      */
 
-    toJSON() {
+    public toJSON() {
         return this.map((el) => {
             return el.toJSON()
         })
@@ -210,7 +210,7 @@ class Collection extends Event implements ICollection {
      * @param predicate - function
      */
 
-    sortBy(predicate: any) {
+    public sortBy(predicate: any) {
         this.reset(this.getAll().sort(predicate))
     }
 
@@ -218,7 +218,7 @@ class Collection extends Event implements ICollection {
      * Return Array of Model
      * @returns {Array<any>}
      */
-    toArray(): Array<any> {
+    public toArray(): Array<any> {
         return this.getAll()
     }
 
@@ -227,29 +227,31 @@ class Collection extends Event implements ICollection {
      * @param size
      * @returns {Array<any>}
      */
-    chunk(size: number = 1): Array<any> {
+    public chunk(size: number = 1): Array<any> {
         return _.chunk(this.getAll(), size)
     }
 
     /**
-     * Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The corresponding value of each key is the number of times the key was returned by iteratee.
+     * Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The corresponding value of each key is the number
+     * of times the key was returned by iteratee.
      * @param predicate - function
      * @returns {Dictionary<number>}
      */
 
-    countBy(predicate: any) {
-        return _.countBy(this.getAll(), predicate);
+    public countBy(predicate: any) {
+        return _.countBy(this.getAll(), predicate)
     }
 
     /**
-     * Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The order of grouped values is determined by the order they occur in collection. The corresponding value of each key is an array of elements responsible for generating the key.
+     * Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The order of grouped values is determined by the
+     * order they occur in collection. The corresponding value of each key is an array of elements responsible for generating the key.
      * @param predicate - function
-     * @returns {Dictionary<T[]>}
+     * @returns {Dictionary<Array<any>>}
      */
-    groupBy(predicate: any) {
-        return _.groupBy(this.getAll(), predicate);
+    public groupBy(predicate: any) {
+        return _.groupBy(this.getAll(), predicate)
     }
-}
 
+}
 
 export {Collection}

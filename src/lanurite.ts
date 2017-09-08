@@ -1,11 +1,11 @@
-import {Model} from "./classes/Model";
-import {Collection} from "./classes/Collection";
-import * as _ from "lodash";
+import * as _ from "lodash"
+import {Collection} from "./classes/Collection"
+import {Model} from "./classes/Model"
 
-declare const __VERSION__: string;
+declare const __VERSION__: string
 export = {
-    Model: Model,
-    Collection: Collection,
-    version: __VERSION__,
-    lodash: _
-};
+    Collection,
+    Model,
+    lodash: _,
+    version: __VERSION__
+}
