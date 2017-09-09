@@ -31,7 +31,7 @@ class Event implements IEvent {
      * @param handler
      */
     public off(eventName: string, handler?: any) {
-        if (handler && handler.name.length) {
+        if (handler && handler.name && handler.name.length) {
             this._events[eventName] = this._events[eventName].filter((callback) => {
                 return callback.name !== handler.name
             })
