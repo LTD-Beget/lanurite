@@ -32,11 +32,12 @@
     "ts-loader": "2.3.3",
     "webpack": "3.5.5",
     "typedoc": "0.8.0",
+    "tslint": "5.7.0",
     "typedoc-webpack-plugin": "1.1.4"
   },
   "main": "dist/lanurite.js",
   "typings": "src/lanurite.d.ts",
-  "version": "1.0.36",
+  "version": "1.0.38",
   "license": "MIT",
   "repository": {
     "type": "git",

@@ -68,5 +68,30 @@ class Model extends Event implements IModel {
         return false
     }
 
+    /**
+     * Reset model with new dataset
+     * @param object
+     */
+    public reset(object: any) {
+        const oldValue = this.toJSON()
+        this._model = _.assign({}, object, {l_id: oldValue.l_id})
+        this.trigger("reset", {value: this.toJSON(), oldValue})
+    }
+
+    /**
+     * Destroy Model remove all listener and trigger destroy
+     * @returns {Model}
+     */
+    public destroy() {
+        this.trigger("destroy")
+        this._offAllListener()
+        this._destroyModel()
+        return this
+    }
+
+    private _destroyModel() {
+        delete this._model
+    }
+
 }
 export {Model}

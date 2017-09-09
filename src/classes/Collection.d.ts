@@ -123,5 +123,11 @@ declare class Collection extends Event implements ICollection {
      * @returns {Dictionary<Array<any>>}
      */
     groupBy(predicate: any): _.Dictionary<any[]>;
+    /**
+     * Destoy Collection remove all event and trigger destroy
+     * @returns {Collection}
+     */
+    destroy(): this;
+    private _destroyCollection();
 }
 export { Collection };

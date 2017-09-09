@@ -20,4 +20,5 @@ export interface ICollection {
     chunk(size: number): Array<any>;
     countBy(predicate: any): any;
     groupBy(predicate: any): any;
+    destroy(): void;
 }

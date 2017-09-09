@@ -3,5 +3,7 @@ export interface IModel {
     set(property: string | number, value: any): void;
     has(property: string | number): boolean;
     drop(property: string | number): boolean;
+    destroy(): void;
+    reset(object: any): void;
     toJSON(): any;
 }

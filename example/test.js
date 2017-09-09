@@ -6,10 +6,11 @@
 let model = new Lanurite.Model({name: "Robot"});
 document.getElementById("test").innerHTML = model.get("name");
 
-model.on("change", function (e) {
+model.on(["change", "reset"], function (e) {
     document.getElementById("test").innerHTML = model.get("name")
     model.off("change", log)
 });
+
 
 let collection = new Lanurite.Collection();
 
@@ -18,6 +19,10 @@ collection.on("add", function (model) {
 })
 
 collection.on("clear", function () {
+    document.getElementById("collection").innerHTML = "";
+});
+
+collection.on("destroy", function () {
     document.getElementById("collection").innerHTML = "";
 });
 
