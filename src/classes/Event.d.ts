@@ -2,11 +2,12 @@ import { IEvent } from "../interfaces/IEvent";
 declare class Event implements IEvent {
     protected _events: any;
     /**
-     * Add handler for eventName
-     * @param eventName
+     * Add handler for events array or string
+     * @param eventsName
      * @param handler
      */
-    on(eventName: string, handler: any): any[];
+    on(eventsName: string | Array<string>, handler: any): void | any[];
+    private _createEvent(event, handler);
     /**
      * Remove all handler from eventName, or remove same handler from event
      * @param eventName
@@ -19,5 +20,6 @@ declare class Event implements IEvent {
      * @param eventParams
      */
     trigger(eventName: string, eventParams?: any): void;
+    protected _offAllListener(): void;
 }
 export { Event };

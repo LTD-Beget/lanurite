@@ -5,15 +5,24 @@ class Event implements IEvent {
     protected _events: any = {}
 
     /**
-     * Add handler for eventName
-     * @param eventName
+     * Add handler for events array or string
+     * @param eventsName
      * @param handler
      */
-    public on(eventName: string, handler: any) {
-        if (_.isUndefined(this._events[eventName])) {
-            return this._events[eventName] = [handler]
+    public on(eventsName: string | Array<string>, handler: any) {
+        if (_.isArray(eventsName)) {
+            return eventsName.forEach((event) => {
+                this._createEvent(event, handler)
+            })
         }
-        this._events[eventName].push(handler)
+        return this._createEvent(eventsName, handler)
+    }
+
+    private _createEvent(event: string, handler: any) {
+        if (_.isUndefined(this._events[event])) {
+            return this._events[event] = [handler]
+        }
+        this._events[event].push(handler)
     }
 
     /**
@@ -42,6 +51,10 @@ class Event implements IEvent {
                 handler(eventParams)
             })
         }
+    }
+
+    protected _offAllListener() {
+        delete this._events
     }
 }
 

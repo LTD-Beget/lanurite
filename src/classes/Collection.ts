@@ -252,6 +252,21 @@ class Collection extends Event implements ICollection {
         return _.groupBy(this.getAll(), predicate)
     }
 
+    /**
+     * Destoy Collection remove all event and trigger destroy
+     * @returns {Collection}
+     */
+    public destroy() {
+        this.trigger("destroy")
+        this._offAllListener()
+        this._destroyCollection()
+        return this
+    }
+
+    private _destroyCollection() {
+        delete this._models
+    }
+
 }
 
 export {Collection}

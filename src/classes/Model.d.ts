@@ -32,5 +32,16 @@ declare class Model extends Event implements IModel {
      * @returns {boolean}
      */
     drop(key: string | number): boolean;
+    /**
+     * Reset model with new dataset
+     * @param object
+     */
+    reset(object: any): void;
+    /**
+     * Destroy Model remove all listener and trigger destroy
+     * @returns {Model}
+     */
+    destroy(): this;
+    private _destroyModel();
 }
 export { Model };
