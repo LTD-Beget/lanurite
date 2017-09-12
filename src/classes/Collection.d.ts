@@ -77,7 +77,7 @@ declare class Collection<T extends IModel> extends Event implements ICollection<
      * Merge collection with Array<T> or Array<Model>
      * @param collection
      */
-    merge(collection: Array<T> | ICollection<T>): void;
+    merge(collection: Array<any> | ICollection<T>): void;
     /**
      * Reset collection with new data array, events will be save
      * @param array

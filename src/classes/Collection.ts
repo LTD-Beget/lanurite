@@ -161,7 +161,7 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
      * @param collection
      */
 
-    public merge(collection: Array<T> | ICollection<T>) {
+    public merge(collection: Array<any> | ICollection<T>) {
         if (_.isArray(collection)) {
             return collection.forEach((object) => {
                 if (this._isModel(object)) {
