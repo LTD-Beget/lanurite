@@ -3,10 +3,9 @@ import { Dictionary } from "lodash";
 import { ICollection } from "../interfaces/ICollection";
 import { IModel } from "../interfaces/IModel";
 import { Event } from "./Event";
-import { Model } from "./Model";
-declare class Collection<T extends Model> extends Event implements ICollection<T> {
+declare class Collection<T extends IModel> extends Event implements ICollection<T> {
     private _models;
-    constructor(array?: Array<T>);
+    constructor(array?: Array<any>);
     private _init(array);
     private _isModel(object);
     private _clearCollection();
@@ -78,12 +77,12 @@ declare class Collection<T extends Model> extends Event implements ICollection<T
      * Merge collection with Array<T> or Array<Model>
      * @param collection
      */
-    merge(collection: Array<T> | ICollection<T>): void;
+    merge(collection: Array<any> | ICollection<T>): void;
     /**
      * Reset collection with new data array, events will be save
      * @param array
      */
-    reset(array?: Array<T>): void;
+    reset(array?: Array<any>): void;
     /**
      * Get collection length
      * @returns {number}

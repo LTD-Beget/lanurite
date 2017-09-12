@@ -5,11 +5,11 @@ import {IModel} from "../interfaces/IModel"
 import {Event} from "./Event"
 import {Model} from "./Model"
 
-class Collection<T extends Model> extends Event implements ICollection<T> {
+class Collection<T extends IModel> extends Event implements ICollection<T> {
 
     private _models: any = {}
 
-    constructor(array: Array<T> = []) {
+    constructor(array: Array<any> = []) {
         super()
         this._init(array)
     }
@@ -161,7 +161,7 @@ class Collection<T extends Model> extends Event implements ICollection<T> {
      * @param collection
      */
 
-    public merge(collection: Array<T> | ICollection<T>) {
+    public merge(collection: Array<any> | ICollection<T>) {
         if (_.isArray(collection)) {
             return collection.forEach((object) => {
                 if (this._isModel(object)) {
@@ -181,7 +181,7 @@ class Collection<T extends Model> extends Event implements ICollection<T> {
      * Reset collection with new data array, events will be save
      * @param array
      */
-    public reset(array: Array<T> = []) {
+    public reset(array: Array<any> = []) {
         this._clearCollection()
         this._init(array)
         this.trigger("reset")

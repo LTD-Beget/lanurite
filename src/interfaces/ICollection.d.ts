@@ -7,13 +7,13 @@ export interface ICollection<T extends IModel> {
     clear(): void;
     has(model: T): boolean;
     getAll(): Array<T>;
-    merge(collection: Array<T> | ICollection<T>): void;
+    merge(collection: Array<any> | ICollection<T>): void;
     filter(predicate: any): Array<T>;
     map(predicate: any): Array<T>;
     reduce(predicate: any, accum: any): any;
     getById(id: string): T | null;
     find(predicate: any, start: number): T | undefined;
-    reset(array: Array<T>): void;
+    reset(array: Array<any>): void;
     getLength(): number;
     each(predicate: any): void;
     toJSON(): any;
