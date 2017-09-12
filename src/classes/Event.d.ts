@@ -6,7 +6,7 @@ declare class Event implements IEvent {
      * @param eventsName
      * @param handler
      */
-    on(eventsName: string | Array<string>, handler: any): void | any[];
+    on(eventsName: string | string[], handler: any): void | any[];
     private _createEvent(event, handler);
     /**
      * Remove all handler from eventName, or remove same handler from event

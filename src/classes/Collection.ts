@@ -9,12 +9,12 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
 
     private _models: any = {}
 
-    constructor(array: Array<any> = []) {
+    constructor(array: any[] = []) {
         super()
         this._init(array)
     }
 
-    private _init(array: Array<any>) {
+    private _init(array: any[]) {
         array.forEach((object) => {
             if (this._isModel(object)) {
                 return this._models[object.get("l_id")] = object
@@ -86,20 +86,20 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
     /**
      * Filtering collection with predicate
      * @param predicate - function
-     * @returns {Array<T>}
+     * @returns {T[]}
      */
 
-    public filter(predicate: any): Array<T> {
+    public filter(predicate: any): T[] {
         return this.getAll().filter(predicate)
     }
 
     /**
      * Create new array with predicate
      * @param predicate - function
-     * @returns {Array<T>}
+     * @returns {T[]}
      */
 
-    public map(predicate: any): Array<T> {
+    public map(predicate: any): T[] {
         return this.getAll().map(predicate)
     }
 
@@ -143,7 +143,7 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
      * @returns {Array[Model]}
      */
 
-    public getAll(): Array<T> {
+    public getAll(): T[] {
         return _.values(this._models)
     }
 
@@ -157,11 +157,11 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
     }
 
     /**
-     * Merge collection with Array<T> or Array<Model>
+     * Merge collection with T[] or Array<Model>
      * @param collection
      */
 
-    public merge(collection: Array<any> | ICollection<T>) {
+    public merge(collection: any[] | ICollection<T>) {
         if (_.isArray(collection)) {
             return collection.forEach((object) => {
                 if (this._isModel(object)) {
@@ -181,7 +181,7 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
      * Reset collection with new data array, events will be save
      * @param array
      */
-    public reset(array: Array<any> = []) {
+    public reset(array: any[] = []) {
         this._clearCollection()
         this._init(array)
         this.trigger("reset")
@@ -197,7 +197,7 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
 
     /**
      * Get JSON from collection
-     * @returns {Array<T>}
+     * @returns {T[]}
      */
 
     public toJSON(): any {
@@ -217,18 +217,18 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
 
     /**
      * Return Array of Model
-     * @returns {Array<T>}
+     * @returns {T[]}
      */
-    public toArray(): Array<T> {
+    public toArray(): T[] {
         return this.getAll()
     }
 
     /**
      * Creates an collection of elements split into groups the length of size. If array can't be split evenly, the final chunk will be the remaining elements.
      * @param size
-     * @returns {Array<T>}
+     * @returns {T[]}
      */
-    public chunk(size: number = 1): Array<Array<T>> {
+    public chunk(size: number = 1): T[][] {
         return _.chunk(this.getAll(), size)
     }
 
@@ -247,9 +247,9 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
      * Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The order of grouped values is determined by the
      * order they occur in collection. The corresponding value of each key is an array of elements responsible for generating the key.
      * @param predicate - function
-     * @returns {Dictionary<Array<T>>}
+     * @returns {Dictionary<T[]>}
      */
-    public groupBy(predicate: any): Dictionary<Array<T>> {
+    public groupBy(predicate: any): Dictionary<T[]> {
         return _.groupBy(this.getAll(), predicate)
     }
 
