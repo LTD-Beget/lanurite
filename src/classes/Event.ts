@@ -9,7 +9,7 @@ class Event implements IEvent {
      * @param eventsName
      * @param handler
      */
-    public on(eventsName: string | Array<string>, handler: any) {
+    public on(eventsName: string | string[], handler: any) {
         if (_.isArray(eventsName)) {
             return eventsName.forEach((event) => {
                 this._createEvent(event, handler)

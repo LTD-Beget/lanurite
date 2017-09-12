@@ -5,7 +5,7 @@ import { IModel } from "../interfaces/IModel";
 import { Event } from "./Event";
 declare class Collection<T extends IModel> extends Event implements ICollection<T> {
     private _models;
-    constructor(array?: Array<any>);
+    constructor(array?: any[]);
     private _init(array);
     private _isModel(object);
     private _clearCollection();
@@ -34,15 +34,15 @@ declare class Collection<T extends IModel> extends Event implements ICollection<
     /**
      * Filtering collection with predicate
      * @param predicate - function
-     * @returns {Array<T>}
+     * @returns {T[]}
      */
-    filter(predicate: any): Array<T>;
+    filter(predicate: any): T[];
     /**
      * Create new array with predicate
      * @param predicate - function
-     * @returns {Array<T>}
+     * @returns {T[]}
      */
-    map(predicate: any): Array<T>;
+    map(predicate: any): T[];
     /**
      * Get Model by id
      * @param id
@@ -67,22 +67,22 @@ declare class Collection<T extends IModel> extends Event implements ICollection<
      * Return Array of Model
      * @returns {Array[Model]}
      */
-    getAll(): Array<T>;
+    getAll(): T[];
     /**
      * Iterate collection with predicate
      * @param predicate - function
      */
     each(predicate: any): void;
     /**
-     * Merge collection with Array<T> or Array<Model>
+     * Merge collection with T[] or Array<Model>
      * @param collection
      */
-    merge(collection: Array<any> | ICollection<T>): void;
+    merge(collection: any[] | ICollection<T>): void;
     /**
      * Reset collection with new data array, events will be save
      * @param array
      */
-    reset(array?: Array<any>): void;
+    reset(array?: any[]): void;
     /**
      * Get collection length
      * @returns {number}
@@ -90,7 +90,7 @@ declare class Collection<T extends IModel> extends Event implements ICollection<
     getLength(): number;
     /**
      * Get JSON from collection
-     * @returns {Array<T>}
+     * @returns {T[]}
      */
     toJSON(): any;
     /**
@@ -100,15 +100,15 @@ declare class Collection<T extends IModel> extends Event implements ICollection<
     sortBy(predicate: any): void;
     /**
      * Return Array of Model
-     * @returns {Array<T>}
+     * @returns {T[]}
      */
-    toArray(): Array<T>;
+    toArray(): T[];
     /**
      * Creates an collection of elements split into groups the length of size. If array can't be split evenly, the final chunk will be the remaining elements.
      * @param size
-     * @returns {Array<T>}
+     * @returns {T[]}
      */
-    chunk(size?: number): Array<Array<T>>;
+    chunk(size?: number): T[][];
     /**
      * Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The corresponding value of each key is the number
      * of times the key was returned by iteratee.
@@ -120,9 +120,9 @@ declare class Collection<T extends IModel> extends Event implements ICollection<
      * Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The order of grouped values is determined by the
      * order they occur in collection. The corresponding value of each key is an array of elements responsible for generating the key.
      * @param predicate - function
-     * @returns {Dictionary<Array<T>>}
+     * @returns {Dictionary<T[]>}
      */
-    groupBy(predicate: any): Dictionary<Array<T>>;
+    groupBy(predicate: any): Dictionary<T[]>;
     /**
      * Destoy Collection remove all event and trigger destroy
      * @returns {Collection}
