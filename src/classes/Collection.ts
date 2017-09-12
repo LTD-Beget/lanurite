@@ -1,10 +1,11 @@
 import * as _ from "lodash"
+import {Dictionary} from "lodash"
 import {ICollection} from "../interfaces/ICollection"
 import {IModel} from "../interfaces/IModel"
 import {Event} from "./Event"
 import {Model} from "./Model"
 
-class Collection<T extends IModel> extends Event implements ICollection<T> {
+class Collection<T extends Model> extends Event implements ICollection<T> {
 
     private _models: any = {}
 
@@ -39,7 +40,7 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
      * @returns {boolean}
      */
 
-    public add(model: IModel) {
+    public add(model: T | IModel) {
         if (_.isUndefined(this._models[model.get("l_id")])) {
             this._models[model.get("l_id")] = model
             this.trigger("add", model)
@@ -54,7 +55,7 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
      * @returns {boolean}
      */
 
-    public remove(model: IModel) {
+    public remove(model: T) {
         if (!_.isUndefined(this._models[model.get("l_id")])) {
             delete this._models[model.get("l_id")]
             this.trigger("remove", model)
@@ -69,7 +70,7 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
      * @returns {boolean}
      */
 
-    public has(model: IModel) {
+    public has(model: T) {
         return !_.isUndefined(this._models[model.get("l_id")])
     }
 
@@ -199,7 +200,7 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
      * @returns {Array<T>}
      */
 
-    public toJSON() {
+    public toJSON(): any {
         return this.map((el) => {
             return el.toJSON()
         })
@@ -210,7 +211,7 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
      * @param predicate - function
      */
 
-    public sortBy(predicate: any) {
+    public sortBy(predicate: any): void {
         this.reset(this.getAll().sort(predicate))
     }
 
@@ -238,7 +239,7 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
      * @returns {Dictionary<number>}
      */
 
-    public countBy(predicate: any) {
+    public countBy(predicate: any): Dictionary<number> {
         return _.countBy(this.getAll(), predicate)
     }
 
@@ -248,7 +249,7 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
      * @param predicate - function
      * @returns {Dictionary<Array<T>>}
      */
-    public groupBy(predicate: any) {
+    public groupBy(predicate: any): Dictionary<Array<T>> {
         return _.groupBy(this.getAll(), predicate)
     }
 
