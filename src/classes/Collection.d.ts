@@ -1,9 +1,10 @@
 /// <reference types="lodash" />
-import * as _ from "lodash";
+import { Dictionary } from "lodash";
 import { ICollection } from "../interfaces/ICollection";
 import { IModel } from "../interfaces/IModel";
 import { Event } from "./Event";
-declare class Collection<T extends IModel> extends Event implements ICollection<T> {
+import { Model } from "./Model";
+declare class Collection<T extends Model> extends Event implements ICollection<T> {
     private _models;
     constructor(array?: Array<T>);
     private _init(array);
@@ -14,19 +15,19 @@ declare class Collection<T extends IModel> extends Event implements ICollection<
      * @param model
      * @returns {boolean}
      */
-    add(model: IModel): boolean;
+    add(model: T | IModel): boolean;
     /**
      * Remove model from collection, return true if model removed or False if model not in collection
      * @param model
      * @returns {boolean}
      */
-    remove(model: IModel): boolean;
+    remove(model: T): boolean;
     /**
      * Return existing model in collection
      * @param model
      * @returns {boolean}
      */
-    has(model: IModel): boolean;
+    has(model: T): boolean;
     /**
      * Clear collection, remove all models, event will be save
      */
@@ -92,7 +93,7 @@ declare class Collection<T extends IModel> extends Event implements ICollection<
      * Get JSON from collection
      * @returns {Array<T>}
      */
-    toJSON(): T[];
+    toJSON(): any;
     /**
      * Sorting collection with predicate, changing collection order.
      * @param predicate - function
@@ -115,14 +116,14 @@ declare class Collection<T extends IModel> extends Event implements ICollection<
      * @param predicate - function
      * @returns {Dictionary<number>}
      */
-    countBy(predicate: any): _.Dictionary<number>;
+    countBy(predicate: any): Dictionary<number>;
     /**
      * Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The order of grouped values is determined by the
      * order they occur in collection. The corresponding value of each key is an array of elements responsible for generating the key.
      * @param predicate - function
      * @returns {Dictionary<Array<T>>}
      */
-    groupBy(predicate: any): _.Dictionary<T[]>;
+    groupBy(predicate: any): Dictionary<Array<T>>;
     /**
      * Destoy Collection remove all event and trigger destroy
      * @returns {Collection}

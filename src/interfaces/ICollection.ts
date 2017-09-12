@@ -1,25 +1,27 @@
+import {Dictionary} from "lodash"
 import {IEvent} from "./IEvent"
 import {IModel} from "./IModel"
+
 export interface ICollection<T extends IModel> {
-    add(model: IModel): boolean
-    remove(model: IModel): boolean
+    add(model: T | IModel): boolean
+    remove(model: T): boolean
     clear(): void
-    has(model: IModel): boolean
+    has(model: T): boolean
     getAll(): Array<T>
     merge(collection: Array<T> | ICollection<T>): void
     filter(predicate: any): Array<T>
     map(predicate: any): Array<T>
     reduce(predicate: any, accum: any): any
-    getById(id: string): IModel | null
+    getById(id: string): T | null
     find(predicate: any, start: number): T | undefined
     reset(array: Array<T>): void
     getLength(): number
     each(predicate: any): void
     toJSON(): any
-    sortBy(predicate: any): any
+    sortBy(predicate: any): void
     toArray(): Array<T>
     chunk(size: number): Array<Array<T>>
-    countBy(predicate: any): any
-    groupBy(predicate: any): any
+    countBy(predicate: any): Dictionary<number>
+    groupBy(predicate: any): Dictionary<Array<T>>
     destroy(): void
 }
