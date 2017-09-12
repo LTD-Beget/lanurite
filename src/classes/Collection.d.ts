@@ -3,9 +3,9 @@ import * as _ from "lodash";
 import { ICollection } from "../interfaces/ICollection";
 import { IModel } from "../interfaces/IModel";
 import { Event } from "./Event";
-declare class Collection extends Event implements ICollection {
+declare class Collection<T extends IModel> extends Event implements ICollection<T> {
     private _models;
-    constructor(array?: Array<any>);
+    constructor(array?: Array<T>);
     private _init(array);
     private _isModel(object);
     private _clearCollection();
@@ -34,15 +34,15 @@ declare class Collection extends Event implements ICollection {
     /**
      * Filtering collection with predicate
      * @param predicate - function
-     * @returns {Array<any>}
+     * @returns {Array<T>}
      */
-    filter(predicate: any): Array<any>;
+    filter(predicate: any): Array<T>;
     /**
      * Create new array with predicate
      * @param predicate - function
-     * @returns {Array<any>}
+     * @returns {Array<T>}
      */
-    map(predicate: any): Array<any>;
+    map(predicate: any): Array<T>;
     /**
      * Get Model by id
      * @param id
@@ -55,7 +55,7 @@ declare class Collection extends Event implements ICollection {
      * @param startIndex - number start index
      * @returns {Model|undefined}
      */
-    find(predicate: any, startIndex?: number): any;
+    find(predicate: any, startIndex?: number): T | undefined;
     /**
      * Accumulation collection with predicate
      * @param predicate - function
@@ -67,22 +67,22 @@ declare class Collection extends Event implements ICollection {
      * Return Array of Model
      * @returns {Array[Model]}
      */
-    getAll(): Array<any>;
+    getAll(): Array<T>;
     /**
      * Iterate collection with predicate
      * @param predicate - function
      */
     each(predicate: any): void;
     /**
-     * Merge collection with Array<any> or Array<Model>
+     * Merge collection with Array<T> or Array<Model>
      * @param collection
      */
-    merge(collection: Array<any> | ICollection): void;
+    merge(collection: Array<T> | ICollection<T>): void;
     /**
      * Reset collection with new data array, events will be save
      * @param array
      */
-    reset(array?: Array<any>): void;
+    reset(array?: Array<T>): void;
     /**
      * Get collection length
      * @returns {number}
@@ -90,9 +90,9 @@ declare class Collection extends Event implements ICollection {
     getLength(): number;
     /**
      * Get JSON from collection
-     * @returns {Array<any>}
+     * @returns {Array<T>}
      */
-    toJSON(): any[];
+    toJSON(): T[];
     /**
      * Sorting collection with predicate, changing collection order.
      * @param predicate - function
@@ -100,15 +100,15 @@ declare class Collection extends Event implements ICollection {
     sortBy(predicate: any): void;
     /**
      * Return Array of Model
-     * @returns {Array<any>}
+     * @returns {Array<T>}
      */
-    toArray(): Array<any>;
+    toArray(): Array<T>;
     /**
      * Creates an collection of elements split into groups the length of size. If array can't be split evenly, the final chunk will be the remaining elements.
      * @param size
-     * @returns {Array<any>}
+     * @returns {Array<T>}
      */
-    chunk(size?: number): Array<any>;
+    chunk(size?: number): Array<Array<T>>;
     /**
      * Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The corresponding value of each key is the number
      * of times the key was returned by iteratee.
@@ -120,9 +120,9 @@ declare class Collection extends Event implements ICollection {
      * Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The order of grouped values is determined by the
      * order they occur in collection. The corresponding value of each key is an array of elements responsible for generating the key.
      * @param predicate - function
-     * @returns {Dictionary<Array<any>>}
+     * @returns {Dictionary<Array<T>>}
      */
-    groupBy(predicate: any): _.Dictionary<any[]>;
+    groupBy(predicate: any): _.Dictionary<T[]>;
     /**
      * Destoy Collection remove all event and trigger destroy
      * @returns {Collection}

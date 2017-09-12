@@ -1,6 +1,2 @@
-/**
- * Created by pyxru on 05/09/2017.
- */
-import Lanurite = require("../src/lanurite")
+import * as Lanurite from  "lanurite"
 
-console.log(Lanurite.version)
