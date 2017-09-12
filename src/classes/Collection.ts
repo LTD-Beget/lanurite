@@ -4,11 +4,11 @@ import {IModel} from "../interfaces/IModel"
 import {Event} from "./Event"
 import {Model} from "./Model"
 
-class Collection extends Event implements ICollection {
+class Collection<T extends IModel> extends Event implements ICollection<T> {
 
     private _models: any = {}
 
-    constructor(array: Array<any> = []) {
+    constructor(array: Array<T> = []) {
         super()
         this._init(array)
     }
@@ -85,20 +85,20 @@ class Collection extends Event implements ICollection {
     /**
      * Filtering collection with predicate
      * @param predicate - function
-     * @returns {Array<any>}
+     * @returns {Array<T>}
      */
 
-    public filter(predicate: any): Array<any> {
+    public filter(predicate: any): Array<T> {
         return this.getAll().filter(predicate)
     }
 
     /**
      * Create new array with predicate
      * @param predicate - function
-     * @returns {Array<any>}
+     * @returns {Array<T>}
      */
 
-    public map(predicate: any): Array<any> {
+    public map(predicate: any): Array<T> {
         return this.getAll().map(predicate)
     }
 
@@ -122,7 +122,7 @@ class Collection extends Event implements ICollection {
      * @returns {Model|undefined}
      */
 
-    public find(predicate: any, startIndex: number = 0): any {
+    public find(predicate: any, startIndex: number = 0): T | undefined {
         return _.find(this.getAll(), predicate, startIndex)
     }
 
@@ -142,7 +142,7 @@ class Collection extends Event implements ICollection {
      * @returns {Array[Model]}
      */
 
-    public getAll(): Array<any> {
+    public getAll(): Array<T> {
         return _.values(this._models)
     }
 
@@ -156,11 +156,11 @@ class Collection extends Event implements ICollection {
     }
 
     /**
-     * Merge collection with Array<any> or Array<Model>
+     * Merge collection with Array<T> or Array<Model>
      * @param collection
      */
 
-    public merge(collection: Array<any> | ICollection) {
+    public merge(collection: Array<T> | ICollection<T>) {
         if (_.isArray(collection)) {
             return collection.forEach((object) => {
                 if (this._isModel(object)) {
@@ -180,7 +180,7 @@ class Collection extends Event implements ICollection {
      * Reset collection with new data array, events will be save
      * @param array
      */
-    public reset(array: Array<any> = []) {
+    public reset(array: Array<T> = []) {
         this._clearCollection()
         this._init(array)
         this.trigger("reset")
@@ -196,7 +196,7 @@ class Collection extends Event implements ICollection {
 
     /**
      * Get JSON from collection
-     * @returns {Array<any>}
+     * @returns {Array<T>}
      */
 
     public toJSON() {
@@ -216,18 +216,18 @@ class Collection extends Event implements ICollection {
 
     /**
      * Return Array of Model
-     * @returns {Array<any>}
+     * @returns {Array<T>}
      */
-    public toArray(): Array<any> {
+    public toArray(): Array<T> {
         return this.getAll()
     }
 
     /**
      * Creates an collection of elements split into groups the length of size. If array can't be split evenly, the final chunk will be the remaining elements.
      * @param size
-     * @returns {Array<any>}
+     * @returns {Array<T>}
      */
-    public chunk(size: number = 1): Array<any> {
+    public chunk(size: number = 1): Array<Array<T>> {
         return _.chunk(this.getAll(), size)
     }
 
@@ -246,7 +246,7 @@ class Collection extends Event implements ICollection {
      * Creates an object composed of keys generated from the results of running each element of collection thru iteratee. The order of grouped values is determined by the
      * order they occur in collection. The corresponding value of each key is an array of elements responsible for generating the key.
      * @param predicate - function
-     * @returns {Dictionary<Array<any>>}
+     * @returns {Dictionary<Array<T>>}
      */
     public groupBy(predicate: any) {
         return _.groupBy(this.getAll(), predicate)
