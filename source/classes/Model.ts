@@ -10,10 +10,20 @@ class Model extends Event implements IModel {
         this._model = _.assign({}, {l_id: _.uniqueId("lr_")}, obj)
     }
 
+    /**
+     * Get value by key
+     * @param key
+     * @returns {any}
+     */
     public get(key: string): any {
         return this._model[key]
     }
 
+    /**
+     * Set value on key in Models
+     * @param key
+     * @param value
+     */
     public set(key: string, value: any): void {
         if (this.has(key)) {
             const oldValue = this.get(key)
@@ -25,14 +35,28 @@ class Model extends Event implements IModel {
         }
     }
 
+    /**
+     * Checked key in Model
+     * @param key
+     * @returns {boolean}
+     */
     public has(key: string): boolean {
         return !Event._isUndefined(this._model[key])
     }
 
+    /**
+     * Get JSON from Model
+     * @returns {{[p: string]: any}}
+     */
     public toJSON(): any {
         return _.clone(this._model)
     }
 
+    /**
+     * Drop key from Model
+     * @param key
+     * @returns {boolean}
+     */
     public drop(key: string): boolean {
         if (this.has(key)) {
             delete this._model[key]
@@ -41,6 +65,10 @@ class Model extends Event implements IModel {
         return false
     }
 
+    /**
+     * Reset Model by another value or Model
+     * @param object
+     */
     public reset(object: { [key: string]: any }): void {
         const oldValue = this.toJSON()
         if (Model.isModel(object)) {
@@ -50,6 +78,9 @@ class Model extends Event implements IModel {
         this.trigger("reset", {value: this.toJSON(), oldValue})
     }
 
+    /**
+     * Destroy Model
+     */
     public destroy(): void {
         this.trigger("destroy")
         this._offAllListener()

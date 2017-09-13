@@ -36,7 +36,7 @@ module.exports = {
             exclude: '**/node_modules/**/*.*',
             experimentalDecorators: true,
             excludeExternals: true
-        }, './src')
+        }, './source')
     ]
 };
 

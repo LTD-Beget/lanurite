@@ -4,6 +4,11 @@ class Event implements IEvent {
 
     protected _events: { [event: string]: IHandler[] } = {}
 
+    /**
+     * Add handler on Event
+     * @param eventsName
+     * @param handler
+     */
     public on(eventsName: string | string[], handler: IHandler): void {
         if (Array.isArray(eventsName)) {
             return eventsName.forEach((event) => {
@@ -21,6 +26,11 @@ class Event implements IEvent {
         this._events[event].push(handler)
     }
 
+    /**
+     * Remove handler from Event
+     * @param eventName
+     * @param handler
+     */
     public off(eventName: string, handler?: IHandler): void {
         if (handler && handler.name && handler.name.length) {
             this._events[eventName] = this._events[eventName].filter((callback) => {
@@ -31,6 +41,11 @@ class Event implements IEvent {
         delete this._events[eventName]
     }
 
+    /**
+     * Trigger Event with Param
+     * @param eventName
+     * @param eventParams
+     */
     public trigger(eventName: string, eventParams: {} | undefined | null = {}): void {
         if (!Event._isUndefined(this._events[eventName])) {
             this._events[eventName].forEach((handler) => {

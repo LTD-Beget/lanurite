@@ -4,6 +4,11 @@ var Event = (function () {
     function Event() {
         this._events = {};
     }
+    /**
+     * Add handler on Event
+     * @param eventsName
+     * @param handler
+     */
     Event.prototype.on = function (eventsName, handler) {
         var _this = this;
         if (Array.isArray(eventsName)) {
@@ -20,6 +25,11 @@ var Event = (function () {
         }
         this._events[event].push(handler);
     };
+    /**
+     * Remove handler from Event
+     * @param eventName
+     * @param handler
+     */
     Event.prototype.off = function (eventName, handler) {
         if (handler && handler.name && handler.name.length) {
             this._events[eventName] = this._events[eventName].filter(function (callback) {
@@ -29,6 +39,11 @@ var Event = (function () {
         }
         delete this._events[eventName];
     };
+    /**
+     * Trigger Event with Param
+     * @param eventName
+     * @param eventParams
+     */
     Event.prototype.trigger = function (eventName, eventParams) {
         if (eventParams === void 0) { eventParams = {}; }
         if (!Event._isUndefined(this._events[eventName])) {

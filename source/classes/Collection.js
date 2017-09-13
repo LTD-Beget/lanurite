@@ -44,6 +44,11 @@ var Collection = (function (_super) {
             delete _this._models[key];
         });
     };
+    /**
+     * Add Model to Collection
+     * @param model
+     * @returns {boolean}
+     */
     Collection.prototype.add = function (model) {
         if (Model_1.Model.isModel(model)) {
             if (Event_1.Event._isUndefined(this._models[model.get("l_id")])) {
@@ -54,6 +59,11 @@ var Collection = (function (_super) {
         }
         return false;
     };
+    /**
+     * Remove Model from Collection
+     * @param model
+     * @returns {boolean}
+     */
     Collection.prototype.remove = function (model) {
         if (Model_1.Model.isModel(model)) {
             if (!Event_1.Event._isUndefined(this._models[model.get("l_id")])) {
@@ -64,39 +74,88 @@ var Collection = (function (_super) {
         }
         return false;
     };
+    /**
+     * Check existing Model in Collection
+     * @param model
+     * @returns {boolean}
+     */
     Collection.prototype.has = function (model) {
         return !Event_1.Event._isUndefined(this._models[model.get("l_id")]);
     };
+    /**
+     * Clear Collection, events will be saving
+     */
     Collection.prototype.clear = function () {
         this._clearCollection();
         this.trigger("clear");
     };
+    /**
+     * Filtering collection by predicate
+     * @param predicate
+     * @returns {S[]}
+     */
     Collection.prototype.filter = function (predicate) {
         return _.filter(this.getAll(), predicate);
     };
+    /**
+     * Create new Array from Collection
+     * @param predicate
+     * @returns {TResult[]}
+     */
     Collection.prototype.map = function (predicate) {
         return _.map(this.getAll(), predicate);
     };
+    /**
+     * Get Model by Id
+     * @param id
+     * @returns {any}
+     */
     Collection.prototype.getById = function (id) {
         if (!Event_1.Event._isUndefined(this._models[id])) {
             return this._models[id];
         }
         return null;
     };
+    /**
+     * Find by predicate in Collection
+     * @param predicate
+     * @param startIndex
+     * @returns {undefined|S}
+     */
     Collection.prototype.find = function (predicate, startIndex) {
         if (startIndex === void 0) { startIndex = 0; }
         return _.find(this.getAll(), predicate, startIndex);
     };
+    /**
+     * Reduce new Collection
+     * @param predicate
+     * @param accum
+     * @returns {{}|undefined|null}
+     */
     Collection.prototype.reduce = function (predicate, accum) {
         if (accum === void 0) { accum = 0; }
         return _.reduce(this.getAll(), predicate, accum);
     };
+    /**
+     * Get Array from Collection
+     * @returns {T[]}
+     */
     Collection.prototype.getAll = function () {
         return _.values(this._models);
     };
+    /**
+     * Iterate collection by predicate
+     * @param predicate
+     * @returns {any}
+     */
     Collection.prototype.each = function (predicate) {
         return _.each(this.getAll(), predicate);
     };
+    /**
+     * Merge collection with array or another collection
+     * @param collection
+     * @returns {any}
+     */
     Collection.prototype.merge = function (collection) {
         var _this = this;
         if (_.isArray(collection)) {
@@ -117,36 +176,74 @@ var Collection = (function (_super) {
             _this.add(model);
         });
     };
+    /**
+     * Reset Collection with new Array of Model or JSON
+     * @param array
+     */
     Collection.prototype.reset = function (array) {
         if (array === void 0) { array = []; }
         this._clearCollection();
         this._init(array);
         this.trigger("reset");
     };
+    /**
+     * Get Collection length
+     * @returns {number}
+     */
     Collection.prototype.getLength = function () {
         return Object.keys(this._models).length;
     };
+    /**
+     * Return JSOn from Collection
+     * @returns {any[]}
+     */
     Collection.prototype.toJSON = function () {
         return _.map(this.getAll(), function (el) {
             return el.toJSON();
         });
     };
+    /**
+     * Sort element with predicate
+     * @param predicate
+     */
     Collection.prototype.sortBy = function (predicate) {
         this.reset(this.getAll().sort(predicate));
     };
+    /**
+     * Get Array from Collection
+     * @returns {T[]}
+     */
     Collection.prototype.toArray = function () {
         return this.getAll();
     };
+    /**
+     * Chunk Array on size
+     * @param size
+     * @returns {T[][]}
+     */
     Collection.prototype.chunk = function (size) {
         if (size === void 0) { size = 1; }
         return _.chunk(this.getAll(), size);
     };
+    /**
+     * Count element by predicate
+     * @param predicate
+     * @returns {Dictionary<number>}
+     */
     Collection.prototype.countBy = function (predicate) {
         return _.countBy(this.getAll(), predicate);
     };
+    /**
+     * Group Collection ny predicate
+     * @param predicate
+     * @returns {Dictionary<({}|undefined|null)[]>}
+     */
     Collection.prototype.groupBy = function (predicate) {
         return _.groupBy(this.getAll(), predicate);
     };
+    /**
+     * Destroy Collection
+     */
     Collection.prototype.destroy = function () {
         this.trigger("destroy");
         this._offAllListener();
