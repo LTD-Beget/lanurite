@@ -4,7 +4,7 @@ set -e
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
 echo "=> Check new verison by TSLint"
-tslint 'src/**/*.ts' --exclude '**/*.d.ts'
+tslint 'source/**/*.ts' --exclude '**/*.d.ts'
 
 echo "=> Upgrade version"
 VERSION=$(npm version --no-git-tag-version patch)
