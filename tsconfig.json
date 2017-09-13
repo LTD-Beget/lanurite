@@ -2,10 +2,11 @@
   "compilerOptions": {
     "module": "commonjs",
     "declaration": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": [
-    "src/**/*.ts"
+    "source/**/*.ts"
   ],
   "exclude": [
     "node_modules",

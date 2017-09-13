@@ -2,7 +2,7 @@ let webpack = require("webpack");
 let TypedocWebpackPlugin = require('typedoc-webpack-plugin');
 
 module.exports = {
-    entry: './src/lanurite.ts',
+    entry: './source/lanurite.ts',
     output: {
         libraryTarget: "umd",
         library: "Lanurite",
