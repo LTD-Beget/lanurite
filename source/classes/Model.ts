@@ -3,29 +3,28 @@ import {IModel} from "../interfaces/IModel"
 import {Event} from "./Event"
 class Model extends Event implements IModel {
 
-    private _model: any
+    private _model: { [key: string]: any } = {}
 
-    constructor(obj: any = {}) {
+    constructor(obj: { [key: string]: any } = {}) {
         super()
         this._model = _.assign({}, {l_id: _.uniqueId("lr_")}, obj)
     }
 
     /**
-     * Get value from key in Model
+     * Get value by key
      * @param key
      * @returns {any}
      */
-
-    public get(key: string | number) {
+    public get(key: string): any {
         return this._model[key]
     }
 
     /**
-     * Set value by key in Model
+     * Set value on key in Models
      * @param key
      * @param value
      */
-    public set(key: string | number, value: any) {
+    public set(key: string, value: any): void {
         if (this.has(key)) {
             const oldValue = this.get(key)
             this._model[key] = value
@@ -37,30 +36,28 @@ class Model extends Event implements IModel {
     }
 
     /**
-     * Checking existing key in model
+     * Checked key in Model
      * @param key
      * @returns {boolean}
      */
-    public has(key: string | number) {
-        return !_.isUndefined(this._model[key])
+    public has(key: string): boolean {
+        return !Event._isUndefined(this._model[key])
     }
 
     /**
-     * Return JSON from Model
-     * @returns {T}
+     * Get JSON from Model
+     * @returns {{[p: string]: any}}
      */
-
     public toJSON(): any {
         return _.clone(this._model)
     }
 
     /**
-     * Drop value by key in Model
+     * Drop key from Model
      * @param key
      * @returns {boolean}
      */
-
-    public drop(key: string | number) {
+    public drop(key: string): boolean {
         if (this.has(key)) {
             delete this._model[key]
             return true
@@ -69,28 +66,33 @@ class Model extends Event implements IModel {
     }
 
     /**
-     * Reset model with new dataset
+     * Reset Model by another value or Model
      * @param object
      */
-    public reset(object: any) {
+    public reset(object: { [key: string]: any }): void {
         const oldValue = this.toJSON()
+        if (Model.isModel(object)) {
+            object = object.toJSON()
+        }
         this._model = _.assign({}, object, {l_id: oldValue.l_id})
         this.trigger("reset", {value: this.toJSON(), oldValue})
     }
 
     /**
-     * Destroy Model remove all listener and trigger destroy
-     * @returns {Model}
+     * Destroy Model
      */
-    public destroy() {
+    public destroy(): void {
         this.trigger("destroy")
         this._offAllListener()
         this._destroyModel()
-        return this
     }
 
-    private _destroyModel() {
+    private _destroyModel(): void {
         delete this._model
+    }
+
+    public static isModel(object: any) {
+        return object instanceof Model
     }
 
 }

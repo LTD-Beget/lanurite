@@ -1,16 +1,16 @@
-import * as _ from "lodash"
 import {IEvent} from "../interfaces/IEvent"
+import {IHandler} from "../interfaces/IHandler"
 class Event implements IEvent {
 
-    protected _events: any = {}
+    protected _events: { [event: string]: IHandler[] } = {}
 
     /**
-     * Add handler for events array or string
+     * Add handler on Event
      * @param eventsName
      * @param handler
      */
-    public on(eventsName: string | string[], handler: any) {
-        if (_.isArray(eventsName)) {
+    public on(eventsName: string | string[], handler: IHandler): void {
+        if (Array.isArray(eventsName)) {
             return eventsName.forEach((event) => {
                 this._createEvent(event, handler)
             })
@@ -18,43 +18,48 @@ class Event implements IEvent {
         return this._createEvent(eventsName, handler)
     }
 
-    private _createEvent(event: string, handler: any) {
-        if (_.isUndefined(this._events[event])) {
-            return this._events[event] = [handler]
+    private _createEvent(event: string, handler: IHandler): void {
+        if (Event._isUndefined(this._events[event])) {
+            this._events[event] = [handler]
+            return
         }
         this._events[event].push(handler)
     }
 
     /**
-     * Remove all handler from eventName, or remove same handler from event
+     * Remove handler from Event
      * @param eventName
      * @param handler
      */
-    public off(eventName: string, handler?: any) {
+    public off(eventName: string, handler?: IHandler): void {
         if (handler && handler.name && handler.name.length) {
             this._events[eventName] = this._events[eventName].filter((callback) => {
                 return callback.name !== handler.name
             })
             return
         }
-        return delete this._events[eventName]
+        delete this._events[eventName]
     }
 
     /**
-     * Triggered event
+     * Trigger Event with Param
      * @param eventName
      * @param eventParams
      */
-    public trigger(eventName: string, eventParams: any = {}) {
-        if (!_.isUndefined(this._events[eventName])) {
+    public trigger(eventName: string, eventParams: {} | undefined | null = {}): void {
+        if (!Event._isUndefined(this._events[eventName])) {
             this._events[eventName].forEach((handler) => {
                 handler(eventParams)
             })
         }
     }
 
-    protected _offAllListener() {
+    protected _offAllListener(): void {
         delete this._events
+    }
+
+    protected static _isUndefined(obj: any) {
+        return obj === void 0
     }
 }
 
