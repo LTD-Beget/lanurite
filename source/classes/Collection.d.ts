@@ -3,9 +3,9 @@ import { IModel } from "../interfaces/IModel";
 import { IPredicate } from "../interfaces/IPredicate";
 import { Event } from "./Event";
 declare class Collection<T extends IModel> extends Event implements ICollection<T> {
-    private Type;
     private _models;
-    constructor(array?: any[] | T[]);
+    private _uniqhash;
+    constructor(array?: any[] | T[], hashParam?: string);
     private _init(array);
     private _clearCollection();
     /**
@@ -13,7 +13,7 @@ declare class Collection<T extends IModel> extends Event implements ICollection<
      * @param model
      * @returns {boolean}
      */
-    add(model: T | IModel): boolean;
+    add(model: T | IModel, needReset?: boolean): boolean;
     /**
      * Remove Model from Collection
      * @param model

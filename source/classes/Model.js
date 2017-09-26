@@ -22,6 +22,13 @@ var Model = (function (_super) {
         return _this;
     }
     /**
+     * Return private models
+     * @returns {{[p: string]: any}}
+     */
+    Model.prototype.getModels = function () {
+        return this._model;
+    };
+    /**
      * Get value by key
      * @param key
      * @returns {any}

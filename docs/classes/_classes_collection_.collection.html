@@ -108,9 +108,9 @@
 						<section class="tsd-index-section tsd-is-private-protected tsd-is-not-exported">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported"><a href="_classes_collection_.collection.html#type" class="tsd-kind-icon">Type</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported"><a href="_classes_collection_.collection.html#_events" class="tsd-kind-icon">_events</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported"><a href="_classes_collection_.collection.html#_models" class="tsd-kind-icon">_models</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported"><a href="_classes_collection_.collection.html#_uniqhash" class="tsd-kind-icon">_uniqhash</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-not-exported">
@@ -156,19 +156,22 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Collection<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_classes_collection_.collection.html" class="tsd-signature-type">Collection</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Collection<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span>, hashParam<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_classes_collection_.collection.html" class="tsd-signature-type">Collection</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L11">classes/Collection.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L11">classes/Collection.ts:11</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> array: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> hashParam: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;l_id&quot;</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_classes_collection_.collection.html" class="tsd-signature-type">Collection</a></h4>
@@ -178,21 +181,6 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-private-protected tsd-is-not-exported">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported">
-					<a name="type" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> Type</h3>
-					<div class="tsd-signature tsd-kind-icon">Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L9">classes/Collection.ts:9</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-						</ul>
-					</div>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported">
 					<a name="_events" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> _events</h3>
@@ -200,7 +188,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_classes_event_.event.html">Event</a>.<a href="_classes_event_.event.html#_events">_events</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Event.ts#L5">classes/Event.ts:5</a></li>
+							<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Event.ts#L5">classes/Event.ts:5</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -218,7 +206,7 @@
 					<div class="tsd-signature tsd-kind-icon">_models<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L11">classes/Collection.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L10">classes/Collection.ts:10</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -229,6 +217,16 @@
 							</li>
 						</ul>
 					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported">
+					<a name="_uniqhash" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _uniqhash</h3>
+					<div class="tsd-signature tsd-kind-icon">_uniqhash<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;l_id&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L11">classes/Collection.ts:11</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
@@ -243,7 +241,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L34">classes/Collection.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L31">classes/Collection.ts:31</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -260,7 +258,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L262">classes/Collection.ts:262</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L258">classes/Collection.ts:258</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -277,7 +275,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L18">classes/Collection.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L20">classes/Collection.ts:20</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -301,7 +299,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_classes_event_.event.html">Event</a>.<a href="_classes_event_.event.html#_offalllistener">_offAllListener</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Event.ts#L57">classes/Event.ts:57</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Event.ts#L57">classes/Event.ts:57</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -312,14 +310,13 @@
 					<a name="add" class="tsd-anchor"></a>
 					<h3>add</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">add<span class="tsd-signature-symbol">(</span>model<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_imodel_.imodel.html" class="tsd-signature-type">IModel</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">add<span class="tsd-signature-symbol">(</span>model<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_imodel_.imodel.html" class="tsd-signature-type">IModel</a>, needReset<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#add">add</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L45">classes/Collection.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L42">classes/Collection.ts:42</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -331,6 +328,9 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>model: <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_imodel_.imodel.html" class="tsd-signature-type">IModel</a></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> needReset: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -348,7 +348,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#chunk">chunk</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L231">classes/Collection.ts:231</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L227">classes/Collection.ts:227</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -377,7 +377,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#clear">clear</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L84">classes/Collection.ts:84</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L85">classes/Collection.ts:85</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -400,7 +400,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#countby">countBy</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L240">classes/Collection.ts:240</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L236">classes/Collection.ts:236</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -434,7 +434,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#destroy">destroy</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L256">classes/Collection.ts:256</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L252">classes/Collection.ts:252</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -457,7 +457,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#each">each</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L152">classes/Collection.ts:152</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L153">classes/Collection.ts:153</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -486,7 +486,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#filter">filter</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L94">classes/Collection.ts:94</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L95">classes/Collection.ts:95</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -515,7 +515,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#find">find</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L125">classes/Collection.ts:125</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L126">classes/Collection.ts:126</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -550,7 +550,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#getall">getAll</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L143">classes/Collection.ts:143</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L144">classes/Collection.ts:144</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -573,7 +573,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#getbyid">getById</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L112">classes/Collection.ts:112</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L113">classes/Collection.ts:113</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -605,7 +605,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#getlength">getLength</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L196">classes/Collection.ts:196</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L192">classes/Collection.ts:192</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -628,7 +628,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#groupby">groupBy</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L249">classes/Collection.ts:249</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L245">classes/Collection.ts:245</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -663,7 +663,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#has">has</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L77">classes/Collection.ts:77</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L78">classes/Collection.ts:78</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -692,7 +692,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#map">map</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L103">classes/Collection.ts:103</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L104">classes/Collection.ts:104</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -721,7 +721,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#merge">merge</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L161">classes/Collection.ts:161</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L162">classes/Collection.ts:162</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -753,7 +753,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_classes_event_.event.html">Event</a>.<a href="_classes_event_.event.html#off">off</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Event.ts#L34">classes/Event.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Event.ts#L34">classes/Event.ts:34</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -788,7 +788,7 @@
 								<p>Implementation of <a href="../interfaces/_interfaces_ievent_.ievent.html">IEvent</a>.<a href="../interfaces/_interfaces_ievent_.ievent.html#on">on</a></p>
 								<p>Inherited from <a href="_classes_event_.event.html">Event</a>.<a href="_classes_event_.event.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Event.ts#L12">classes/Event.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Event.ts#L12">classes/Event.ts:12</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -822,7 +822,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#reduce">reduce</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L135">classes/Collection.ts:135</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L136">classes/Collection.ts:136</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -855,7 +855,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#remove">remove</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L61">classes/Collection.ts:61</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L62">classes/Collection.ts:62</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -884,7 +884,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#reset">reset</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L186">classes/Collection.ts:186</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L182">classes/Collection.ts:182</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -915,7 +915,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#sortby">sortBy</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L214">classes/Collection.ts:214</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L210">classes/Collection.ts:210</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -946,7 +946,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#toarray">toArray</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L222">classes/Collection.ts:222</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L218">classes/Collection.ts:218</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -969,7 +969,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#tojson">toJSON</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Collection.ts#L204">classes/Collection.ts:204</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Collection.ts#L200">classes/Collection.ts:200</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -993,7 +993,7 @@
 								<p>Implementation of <a href="../interfaces/_interfaces_ievent_.ievent.html">IEvent</a>.<a href="../interfaces/_interfaces_ievent_.ievent.html#trigger">trigger</a></p>
 								<p>Inherited from <a href="_classes_event_.event.html">Event</a>.<a href="_classes_event_.event.html#trigger">trigger</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Event.ts#L49">classes/Event.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Event.ts#L49">classes/Event.ts:49</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1027,7 +1027,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_classes_event_.event.html">Event</a>.<a href="_classes_event_.event.html#_isundefined">_isUndefined</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/edb082e/source/classes/Event.ts#L61">classes/Event.ts:61</a></li>
+									<li>Defined in <a href="https://github.com/LTD-Beget/lanurite/blob/181f7fb/source/classes/Event.ts#L61">classes/Event.ts:61</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1070,6 +1070,9 @@
 						<a href="../modules/_interfaces_imodel_.html">"interfaces/IModel"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="../modules/_interfaces_imodels_.html">"interfaces/IModels"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_interfaces_ipredicate_.html">"interfaces/IPredicate"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -1087,14 +1090,14 @@
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-not-exported">
 								<a href="_classes_collection_.collection.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported">
-								<a href="_classes_collection_.collection.html#type" class="tsd-kind-icon">Type</a>
-							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported">
 								<a href="_classes_collection_.collection.html#_events" class="tsd-kind-icon">_events</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported">
 								<a href="_classes_collection_.collection.html#_models" class="tsd-kind-icon">_models</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported">
+								<a href="_classes_collection_.collection.html#_uniqhash" class="tsd-kind-icon">_uniqhash</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private tsd-is-not-exported">
 								<a href="_classes_collection_.collection.html#_clearcollection" class="tsd-kind-icon">_clear<wbr>Collection</a>

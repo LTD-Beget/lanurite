@@ -1,13 +1,22 @@
 import * as _ from "lodash"
 import {IModel} from "../interfaces/IModel"
+import {IModels} from "../interfaces/IModels"
 import {Event} from "./Event"
-class Model extends Event implements IModel {
+class Model<T extends IModels> extends Event implements IModel {
 
-    private _model: { [key: string]: any } = {}
+    private _model: T = {} as T
 
-    constructor(obj: { [key: string]: any } = {}) {
+    constructor(obj: T = {} as T) {
         super()
         this._model = _.assign({}, {l_id: _.uniqueId("lr_")}, obj)
+    }
+
+    /**
+     * Return private models
+     * @returns {{[p: string]: any}}
+     */
+    public getModels(): T {
+        return this._model
     }
 
     /**
@@ -69,7 +78,7 @@ class Model extends Event implements IModel {
      * Reset Model by another value or Model
      * @param object
      */
-    public reset(object: { [key: string]: any }): void {
+    public reset(object: T): void {
         const oldValue = this.toJSON()
         if (Model.isModel(object)) {
             object = object.toJSON()

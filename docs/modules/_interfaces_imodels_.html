@@ -3,17 +3,17 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>lanurite</title>
+	<title>&quot;interfaces/IModels&quot; | lanurite</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="assets/css/main.css">
+	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
 <body>
 <header>
 	<div class="tsd-page-toolbar">
 		<div class="container">
 			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
 					<div class="field">
 						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
 						<input id="tsd-search-field" type="text" />
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">lanurite</a>
+					<a href="../index.html" class="title">lanurite</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -51,113 +51,76 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="globals.html">Globals</a>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="_interfaces_imodels_.html">&quot;interfaces/IModels&quot;</a>
 				</li>
 			</ul>
-			<h1> lanurite</h1>
+			<h1>External module &quot;interfaces/IModels&quot;</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<div class="tsd-panel tsd-typography">
-				<h1 id="lanurite">Lanurite</h1>
-				<p>Library for Models and Collection use in JS worlds</p>
-				<p>Documentation:
-				<a href="https://pxyup.github.io/lanurite/">https://pxyup.github.io/lanurite/</a></p>
-				<p><a href="https://nodei.co/npm/lanurite/"><img src="https://nodei.co/npm/lanurite.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM"></a></p>
-				<p><strong>For use in browser</strong></p>
-				<p><code>&lt;script src=&quot;../dist/lanurite.js&quot;&gt;&lt;/script&gt;</code></p>
-				<p><strong>For use in TypeScript</strong></p>
-				<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> Lanurite <span class="hljs-keyword">from</span> <span class="hljs-string">"lanurite"</span>
-<span class="hljs-built_in">console</span>.log(Lanurite.version)
-</code></pre>
-				<p><strong>For use in NodeJS</strong></p>
-				<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> Lanurite = <span class="hljs-built_in">require</span>(<span class="hljs-string">"lanurite"</span>);
-<span class="hljs-built_in">console</span>.log(Lanurite.version)
-</code></pre>
-				<h2 id="example">Example</h2>
-				<pre><code class="lang-javascript">
-<span class="hljs-keyword">let</span> model = <span class="hljs-keyword">new</span> Lanurite.Model({<span class="hljs-attr">name</span>: <span class="hljs-string">"Robot"</span>});
-<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"test"</span>).innerHTML = model.get(<span class="hljs-string">"name"</span>);
-
-model.on(<span class="hljs-string">"change"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{
-    <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"test"</span>).innerHTML = model.get(<span class="hljs-string">"name"</span>)
-    model.off(<span class="hljs-string">"change"</span>, log)
-});
-
-<span class="hljs-keyword">let</span> collection = <span class="hljs-keyword">new</span> Lanurite.Collection();
-
-collection.on(<span class="hljs-string">"add"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">model</span>) </span>{
-    <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"collection"</span>).innerHTML += model.get(<span class="hljs-string">"name"</span>) + <span class="hljs-string">"&lt;br&gt;"</span>
-})
-
-collection.on(<span class="hljs-string">"clear"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-    <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"collection"</span>).innerHTML = <span class="hljs-string">""</span>;
-});
-
-model.on(<span class="hljs-string">"change"</span>, log);
-
-collection.on(<span class="hljs-string">"reset"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-    getCollectionDOM();
-});
-
-getCollectionDOM();
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">log</span>(<span class="hljs-params">event</span>)</span>{
-    <span class="hljs-built_in">console</span>.log(event)
-}
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getCollectionDOM</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"collection"</span>).innerHTML = <span class="hljs-string">""</span>;
-    collection.each(<span class="hljs-function">(<span class="hljs-params">el</span>) =&gt;</span> {
-        <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"collection"</span>).innerHTML += el.get(<span class="hljs-string">"name"</span>) + <span class="hljs-string">"&lt;br&gt;"</span>
-    });
-}
-</code></pre>
-			</div>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Interfaces</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_interfaces_imodels_.imodels.html" class="tsd-kind-icon">IModels</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
 					<li class="globals  ">
-						<a href="globals.html"><em>Globals</em></a>
+						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_classes_collection_.html">"classes/<wbr>Collection"</a>
+						<a href="_classes_collection_.html">"classes/<wbr>Collection"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_classes_event_.html">"classes/<wbr>Event"</a>
+						<a href="_classes_event_.html">"classes/<wbr>Event"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_classes_model_.html">"classes/<wbr>Model"</a>
+						<a href="_classes_model_.html">"classes/<wbr>Model"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_interfaces_icollection_.html">"interfaces/ICollection"</a>
+						<a href="_interfaces_icollection_.html">"interfaces/ICollection"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_interfaces_ievent_.html">"interfaces/IEvent"</a>
+						<a href="_interfaces_ievent_.html">"interfaces/IEvent"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_interfaces_ihandler_.html">"interfaces/IHandler"</a>
+						<a href="_interfaces_ihandler_.html">"interfaces/IHandler"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_interfaces_imodel_.html">"interfaces/IModel"</a>
+						<a href="_interfaces_imodel_.html">"interfaces/IModel"</a>
+					</li>
+					<li class="current tsd-kind-external-module">
+						<a href="_interfaces_imodels_.html">"interfaces/IModels"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_interfaces_imodels_.html">"interfaces/IModels"</a>
+						<a href="_interfaces_ipredicate_.html">"interfaces/IPredicate"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_interfaces_ipredicate_.html">"interfaces/IPredicate"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_lanurite_.html">"lanurite"</a>
+						<a href="_lanurite_.html">"lanurite"</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="../interfaces/_interfaces_imodels_.imodels.html" class="tsd-kind-icon">IModels</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
@@ -226,7 +189,7 @@ getCollectionDOM();
 	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
-<script src="assets/js/main.js"></script>
-<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+<script src="../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>

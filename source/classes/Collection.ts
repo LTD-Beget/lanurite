@@ -6,28 +6,25 @@ import {Event} from "./Event"
 import {Model} from "./Model"
 
 class Collection<T extends IModel> extends Event implements ICollection<T> {
-    private Type: new (param: any) => T
 
     private _models: { [key: string]: T | IModel } = {}
+    private _uniqhash: string = "l_id"
 
-    constructor(array: any[] | T[] = []) {
+    constructor(array: any[] | T[] = [], hashParam: string = "l_id") {
         super()
+        this._uniqhash = hashParam
         this._init(array)
+
     }
 
     private _init(array: T[] | any[]) {
         _.each(array, (object) => {
             if (Model.isModel(object)) {
-                this._models[object.get("l_id")] = object
+                this._models[object.get(this._uniqhash)] = object
                 return
             }
-            if (_.isFunction(this.Type)) {
-                const typedModel = new this.Type(object)
-                this._models[typedModel.get("l_id")] = typedModel
-                return
-            }
-            const model = new Model(object)
-            this._models[model.get("l_id")] = model
+            const model = new Model<T>(object)
+            this._models[model.get(this._uniqhash)] = model
         })
     }
 
@@ -42,12 +39,16 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
      * @param model
      * @returns {boolean}
      */
-    public add(model: T | IModel) {
+    public add(model: T | IModel, needReset = false) {
         if (Model.isModel(model)) {
-            if (Event._isUndefined(this._models[model.get("l_id")])) {
-                this._models[model.get("l_id")] = model
+            if (Event._isUndefined(this._models[model.get(this._uniqhash)])) {
+                this._models[model.get(this._uniqhash)] = model
                 this.trigger("add", model)
                 return true
+            } else {
+                if (needReset) {
+                    this.getById(this._uniqhash).reset(model)
+                }
             }
         }
         return false
@@ -60,8 +61,8 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
      */
     public remove(model: T | IModel) {
         if (Model.isModel(model)) {
-            if (!Event._isUndefined(this._models[model.get("l_id")])) {
-                delete this._models[model.get("l_id")]
+            if (!Event._isUndefined(this._models[model.get(this._uniqhash)])) {
+                delete this._models[model.get(this._uniqhash)]
                 this.trigger("remove", model)
                 return true
             }
@@ -75,7 +76,7 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
      * @returns {boolean}
      */
     public has(model: T | IModel) {
-        return !Event._isUndefined(this._models[model.get("l_id")])
+        return !Event._isUndefined(this._models[model.get(this._uniqhash)])
     }
 
     /**
@@ -164,17 +165,12 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
                 if (Model.isModel(object)) {
                     return this.add(object)
                 }
-                if (_.isFunction(this.Type)) {
-                    const typedModel = new this.Type(object)
-                    this.add(typedModel)
-                    return
-                }
-                const model = new Model(object)
-                this.add(model)
+                const model = new Model<T>(object)
+                this.add(model, true)
             })
         }
         _.each(collection.getAll(), (model) => {
-            this.add(model)
+            this.add(model, true)
         })
 
     }
