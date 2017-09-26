@@ -1,10 +1,14 @@
 import { IModel } from "../interfaces/IModel";
+import { IModels } from "../interfaces/IModels";
 import { Event } from "./Event";
-declare class Model extends Event implements IModel {
+declare class Model<T extends IModels> extends Event implements IModel {
     private _model;
-    constructor(obj?: {
-        [key: string]: any;
-    });
+    constructor(obj?: T);
+    /**
+     * Return private models
+     * @returns {{[p: string]: any}}
+     */
+    getModels(): T;
     /**
      * Get value by key
      * @param key
@@ -38,9 +42,7 @@ declare class Model extends Event implements IModel {
      * Reset Model by another value or Model
      * @param object
      */
-    reset(object: {
-        [key: string]: any;
-    }): void;
+    reset(object: T): void;
     /**
      * Destroy Model
      */

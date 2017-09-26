@@ -15,10 +15,13 @@ var Event_1 = require("./Event");
 var Model_1 = require("./Model");
 var Collection = (function (_super) {
     __extends(Collection, _super);
-    function Collection(array) {
+    function Collection(array, hashParam) {
         if (array === void 0) { array = []; }
+        if (hashParam === void 0) { hashParam = "l_id"; }
         var _this = _super.call(this) || this;
         _this._models = {};
+        _this._uniqhash = "l_id";
+        _this._uniqhash = hashParam;
         _this._init(array);
         return _this;
     }
@@ -26,16 +29,11 @@ var Collection = (function (_super) {
         var _this = this;
         _.each(array, function (object) {
             if (Model_1.Model.isModel(object)) {
-                _this._models[object.get("l_id")] = object;
-                return;
-            }
-            if (_.isFunction(_this.Type)) {
-                var typedModel = new _this.Type(object);
-                _this._models[typedModel.get("l_id")] = typedModel;
+                _this._models[object.get(_this._uniqhash)] = object;
                 return;
             }
             var model = new Model_1.Model(object);
-            _this._models[model.get("l_id")] = model;
+            _this._models[model.get(_this._uniqhash)] = model;
         });
     };
     Collection.prototype._clearCollection = function () {
@@ -49,12 +47,18 @@ var Collection = (function (_super) {
      * @param model
      * @returns {boolean}
      */
-    Collection.prototype.add = function (model) {
+    Collection.prototype.add = function (model, needReset) {
+        if (needReset === void 0) { needReset = false; }
         if (Model_1.Model.isModel(model)) {
-            if (Event_1.Event._isUndefined(this._models[model.get("l_id")])) {
-                this._models[model.get("l_id")] = model;
+            if (Event_1.Event._isUndefined(this._models[model.get(this._uniqhash)])) {
+                this._models[model.get(this._uniqhash)] = model;
                 this.trigger("add", model);
                 return true;
+            }
+            else {
+                if (needReset) {
+                    this.getById(this._uniqhash).reset(model);
+                }
             }
         }
         return false;
@@ -66,8 +70,8 @@ var Collection = (function (_super) {
      */
     Collection.prototype.remove = function (model) {
         if (Model_1.Model.isModel(model)) {
-            if (!Event_1.Event._isUndefined(this._models[model.get("l_id")])) {
-                delete this._models[model.get("l_id")];
+            if (!Event_1.Event._isUndefined(this._models[model.get(this._uniqhash)])) {
+                delete this._models[model.get(this._uniqhash)];
                 this.trigger("remove", model);
                 return true;
             }
@@ -80,7 +84,7 @@ var Collection = (function (_super) {
      * @returns {boolean}
      */
     Collection.prototype.has = function (model) {
-        return !Event_1.Event._isUndefined(this._models[model.get("l_id")]);
+        return !Event_1.Event._isUndefined(this._models[model.get(this._uniqhash)]);
     };
     /**
      * Clear Collection, events will be saving
@@ -163,17 +167,12 @@ var Collection = (function (_super) {
                 if (Model_1.Model.isModel(object)) {
                     return _this.add(object);
                 }
-                if (_.isFunction(_this.Type)) {
-                    var typedModel = new _this.Type(object);
-                    _this.add(typedModel);
-                    return;
-                }
                 var model = new Model_1.Model(object);
-                _this.add(model);
+                _this.add(model, true);
             });
         }
         _.each(collection.getAll(), function (model) {
-            _this.add(model);
+            _this.add(model, true);
         });
     };
     /**
