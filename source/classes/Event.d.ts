@@ -1,15 +1,15 @@
 import { IEvent } from "../interfaces/IEvent";
 import { IHandler } from "../interfaces/IHandler";
-declare class Event implements IEvent {
+export declare class Event implements IEvent {
     protected _events: {
-        [event: string]: IHandler[];
+        [event: string]: Array<IHandler>;
     };
     /**
      * Add handler on Event
      * @param eventsName
      * @param handler
      */
-    on(eventsName: string | string[], handler: IHandler): void;
+    on(eventsName: string | Array<string>, handler: IHandler): void;
     private _createEvent(event, handler);
     /**
      * Remove handler from Event
@@ -26,4 +26,3 @@ declare class Event implements IEvent {
     protected _offAllListener(): void;
     protected static _isUndefined(obj: any): boolean;
 }
-export { Event };

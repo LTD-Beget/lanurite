@@ -10,10 +10,19 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-var _ = require("lodash");
+var chunk = require("lodash/chunk");
+var countBy = require("lodash/countBy");
+var each = require("lodash/each");
+var filter = require("lodash/filter");
+var find = require("lodash/find");
+var groupBy = require("lodash/groupBy");
+var isArray = require("lodash/isArray");
+var map = require("lodash/map");
+var reduce = require("lodash/reduce");
+var values = require("lodash/values");
 var Event_1 = require("./Event");
 var Model_1 = require("./Model");
-var Collection = (function (_super) {
+var Collection = /** @class */ (function (_super) {
     __extends(Collection, _super);
     function Collection(array, hashParam) {
         if (array === void 0) { array = []; }
@@ -27,7 +36,7 @@ var Collection = (function (_super) {
     }
     Collection.prototype._init = function (array) {
         var _this = this;
-        _.each(array, function (object) {
+        each(array, function (object) {
             if (Model_1.Model.isModel(object)) {
                 _this._models[object.get(_this._uniqhash)] = object;
                 return;
@@ -38,13 +47,14 @@ var Collection = (function (_super) {
     };
     Collection.prototype._clearCollection = function () {
         var _this = this;
-        Object.keys(this._models).forEach(function (key) {
+        each(Object.keys(this._models), function (key) {
             delete _this._models[key];
         });
     };
     /**
      * Add Model to Collection
      * @param model
+     * @param needReset
      * @returns {boolean}
      */
     Collection.prototype.add = function (model, needReset) {
@@ -96,18 +106,18 @@ var Collection = (function (_super) {
     /**
      * Filtering collection by predicate
      * @param predicate
-     * @returns {S[]}
+     * @returns {Array}
      */
     Collection.prototype.filter = function (predicate) {
-        return _.filter(this.getAll(), predicate);
+        return filter(this.getAll(), predicate);
     };
     /**
      * Create new Array from Collection
      * @param predicate
-     * @returns {TResult[]}
+     * @returns {Array}
      */
     Collection.prototype.map = function (predicate) {
-        return _.map(this.getAll(), predicate);
+        return map(this.getAll(), predicate);
     };
     /**
      * Get Model by Id
@@ -128,7 +138,7 @@ var Collection = (function (_super) {
      */
     Collection.prototype.find = function (predicate, startIndex) {
         if (startIndex === void 0) { startIndex = 0; }
-        return _.find(this.getAll(), predicate, startIndex);
+        return find(this.getAll(), predicate, startIndex);
     };
     /**
      * Reduce new Collection
@@ -138,40 +148,39 @@ var Collection = (function (_super) {
      */
     Collection.prototype.reduce = function (predicate, accum) {
         if (accum === void 0) { accum = 0; }
-        return _.reduce(this.getAll(), predicate, accum);
+        return reduce(this.getAll(), predicate, accum);
     };
     /**
      * Get Array from Collection
-     * @returns {T[]}
+     * @returns {Array}
      */
     Collection.prototype.getAll = function () {
-        return _.values(this._models);
+        return values(this._models);
     };
     /**
      * Iterate collection by predicate
      * @param predicate
-     * @returns {any}
      */
     Collection.prototype.each = function (predicate) {
-        return _.each(this.getAll(), predicate);
+        each(this.getAll(), predicate);
     };
     /**
      * Merge collection with array or another collection
      * @param collection
-     * @returns {any}
      */
     Collection.prototype.merge = function (collection) {
         var _this = this;
-        if (_.isArray(collection)) {
-            return _.each(collection, function (object) {
+        if (isArray(collection)) {
+            each(collection, function (object) {
                 if (Model_1.Model.isModel(object)) {
                     return _this.add(object);
                 }
                 var model = new Model_1.Model(object);
                 _this.add(model, true);
             });
+            return;
         }
-        _.each(collection.getAll(), function (model) {
+        each(collection.getAll(), function (model) {
             _this.add(model, true);
         });
     };
@@ -194,10 +203,10 @@ var Collection = (function (_super) {
     };
     /**
      * Return JSOn from Collection
-     * @returns {any[]}
+     * @returns {Array}
      */
     Collection.prototype.toJSON = function () {
-        return _.map(this.getAll(), function (el) {
+        return map(this.getAll(), function (el) {
             return el.toJSON();
         });
     };
@@ -210,7 +219,7 @@ var Collection = (function (_super) {
     };
     /**
      * Get Array from Collection
-     * @returns {T[]}
+     * @returns {Array}
      */
     Collection.prototype.toArray = function () {
         return this.getAll();
@@ -218,11 +227,11 @@ var Collection = (function (_super) {
     /**
      * Chunk Array on size
      * @param size
-     * @returns {T[][]}
+     * @returns {Array<Array>}
      */
     Collection.prototype.chunk = function (size) {
         if (size === void 0) { size = 1; }
-        return _.chunk(this.getAll(), size);
+        return chunk(this.getAll(), size);
     };
     /**
      * Count element by predicate
@@ -230,7 +239,7 @@ var Collection = (function (_super) {
      * @returns {Dictionary<number>}
      */
     Collection.prototype.countBy = function (predicate) {
-        return _.countBy(this.getAll(), predicate);
+        return countBy(this.getAll(), predicate);
     };
     /**
      * Group Collection ny predicate
@@ -238,7 +247,7 @@ var Collection = (function (_super) {
      * @returns {Dictionary<({}|undefined|null)[]>}
      */
     Collection.prototype.groupBy = function (predicate) {
-        return _.groupBy(this.getAll(), predicate);
+        return groupBy(this.getAll(), predicate);
     };
     /**
      * Destroy Collection

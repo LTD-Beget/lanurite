@@ -1,14 +1,17 @@
-import * as _ from "lodash"
-import {IModel} from "../interfaces/IModel"
-import {IModels} from "../interfaces/IModels"
-import {Event} from "./Event"
-class Model<T extends IModels> extends Event implements IModel {
+import assign = require("lodash/assign")
+import clone = require("lodash/clone")
+import uniqueId = require("lodash/uniqueId")
+import { IModel } from "../interfaces/IModel"
+import { IModels } from "../interfaces/IModels"
+import { Event } from "./Event"
+
+export class Model<T extends IModels> extends Event implements IModel {
 
     private _model: T = {} as T
 
     constructor(obj: T = {} as T) {
         super()
-        this._model = _.assign({}, {l_id: _.uniqueId("lr_")}, obj)
+        this._model = assign({}, {l_id: uniqueId("lr_")}, obj)
     }
 
     /**
@@ -58,7 +61,7 @@ class Model<T extends IModels> extends Event implements IModel {
      * @returns {{[p: string]: any}}
      */
     public toJSON(): any {
-        return _.clone(this._model)
+        return clone(this._model)
     }
 
     /**
@@ -83,7 +86,7 @@ class Model<T extends IModels> extends Event implements IModel {
         if (Model.isModel(object)) {
             object = object.toJSON()
         }
-        this._model = _.assign({}, object, {l_id: oldValue.l_id})
+        this._model = assign({}, object, {l_id: oldValue.l_id})
         this.trigger("reset", {value: this.toJSON(), oldValue})
     }
 
@@ -105,4 +108,3 @@ class Model<T extends IModels> extends Event implements IModel {
     }
 
 }
-export {Model}

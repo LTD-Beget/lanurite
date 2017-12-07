@@ -2,15 +2,16 @@ import { ICollection } from "../interfaces/ICollection";
 import { IModel } from "../interfaces/IModel";
 import { IPredicate } from "../interfaces/IPredicate";
 import { Event } from "./Event";
-declare class Collection<T extends IModel> extends Event implements ICollection<T> {
+export declare class Collection<T extends IModel> extends Event implements ICollection<T> {
     private _models;
     private _uniqhash;
-    constructor(array?: any[] | T[], hashParam?: string);
+    constructor(array?: Array<T | any>, hashParam?: string);
     private _init(array);
     private _clearCollection();
     /**
      * Add Model to Collection
      * @param model
+     * @param needReset
      * @returns {boolean}
      */
     add(model: T | IModel, needReset?: boolean): boolean;
@@ -33,15 +34,15 @@ declare class Collection<T extends IModel> extends Event implements ICollection<
     /**
      * Filtering collection by predicate
      * @param predicate
-     * @returns {S[]}
+     * @returns {Array}
      */
-    filter(predicate: IPredicate): T[];
+    filter(predicate: IPredicate): Array<T>;
     /**
      * Create new Array from Collection
      * @param predicate
-     * @returns {TResult[]}
+     * @returns {Array}
      */
-    map(predicate: IPredicate): any[];
+    map(predicate: IPredicate): Array<any>;
     /**
      * Get Model by Id
      * @param id
@@ -61,29 +62,27 @@ declare class Collection<T extends IModel> extends Event implements ICollection<
      * @param accum
      * @returns {{}|undefined|null}
      */
-    reduce(predicate: IPredicate, accum?: any): any;
+    reduce(predicate: IPredicate, accum?: any): {} | undefined | null;
     /**
      * Get Array from Collection
-     * @returns {T[]}
+     * @returns {Array}
      */
-    getAll(): T[];
+    getAll(): Array<T>;
     /**
      * Iterate collection by predicate
      * @param predicate
-     * @returns {any}
      */
-    each(predicate: IPredicate): T[];
+    each(predicate: IPredicate): void;
     /**
      * Merge collection with array or another collection
      * @param collection
-     * @returns {any}
      */
-    merge(collection: T[] | ICollection<T> | any[]): any[] | T[];
+    merge(collection: Array<T | any> | ICollection<T>): void;
     /**
      * Reset Collection with new Array of Model or JSON
      * @param array
      */
-    reset(array?: any[] | T[]): void;
+    reset(array?: Array<T | any>): void;
     /**
      * Get Collection length
      * @returns {number}
@@ -91,9 +90,9 @@ declare class Collection<T extends IModel> extends Event implements ICollection<
     getLength(): number;
     /**
      * Return JSOn from Collection
-     * @returns {any[]}
+     * @returns {Array}
      */
-    toJSON(): any;
+    toJSON(): Array<any>;
     /**
      * Sort element with predicate
      * @param predicate
@@ -101,15 +100,15 @@ declare class Collection<T extends IModel> extends Event implements ICollection<
     sortBy(predicate: IPredicate): void;
     /**
      * Get Array from Collection
-     * @returns {T[]}
+     * @returns {Array}
      */
-    toArray(): T[];
+    toArray(): Array<T>;
     /**
      * Chunk Array on size
      * @param size
-     * @returns {T[][]}
+     * @returns {Array<Array>}
      */
-    chunk(size?: number): T[][];
+    chunk(size?: number): Array<Array<T>>;
     /**
      * Count element by predicate
      * @param predicate
@@ -124,7 +123,7 @@ declare class Collection<T extends IModel> extends Event implements ICollection<
      * @returns {Dictionary<({}|undefined|null)[]>}
      */
     groupBy(predicate: IPredicate): {
-        [key: string]: T[];
+        [key: string]: Array<T>;
     };
     /**
      * Destroy Collection
@@ -132,4 +131,3 @@ declare class Collection<T extends IModel> extends Event implements ICollection<
     destroy(): void;
     private _destroyCollection();
 }
-export { Collection };
