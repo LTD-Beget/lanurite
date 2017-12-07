@@ -1,7 +1,7 @@
 import { IModel } from "../interfaces/IModel";
 import { IModels } from "../interfaces/IModels";
 import { Event } from "./Event";
-declare class Model<T extends IModels> extends Event implements IModel {
+export declare class Model<T extends IModels> extends Event implements IModel {
     private _model;
     constructor(obj?: T);
     /**
@@ -50,4 +50,3 @@ declare class Model<T extends IModels> extends Event implements IModel {
     private _destroyModel();
     static isModel(object: any): boolean;
 }
-export { Model };

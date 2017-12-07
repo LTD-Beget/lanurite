@@ -38,6 +38,7 @@
       "allow-leading-underscore",
       "allow-pascal-case",
       "ban-keywords"
-    ]
+    ],
+    "array-type": [true, "generic"]
   }
 }
