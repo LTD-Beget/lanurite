@@ -1,15 +1,15 @@
-import {IEvent} from "../interfaces/IEvent"
-import {IHandler} from "../interfaces/IHandler"
-class Event implements IEvent {
+import { IEvent } from "../interfaces/IEvent"
+import { IHandler } from "../interfaces/IHandler"
+export class Event implements IEvent {
 
-    protected _events: { [event: string]: IHandler[] } = {}
+    protected _events: { [event: string]: Array<IHandler> } = {}
 
     /**
      * Add handler on Event
      * @param eventsName
      * @param handler
      */
-    public on(eventsName: string | string[], handler: IHandler): void {
+    public on(eventsName: string | Array<string>, handler: IHandler): void {
         if (Array.isArray(eventsName)) {
             return eventsName.forEach((event) => {
                 this._createEvent(event, handler)
@@ -62,5 +62,3 @@ class Event implements IEvent {
         return obj === void 0
     }
 }
-
-export {Event}

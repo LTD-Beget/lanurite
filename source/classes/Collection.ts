@@ -1,24 +1,33 @@
-import * as _ from "lodash"
-import {ICollection} from "../interfaces/ICollection"
-import {IModel} from "../interfaces/IModel"
-import {IPredicate} from "../interfaces/IPredicate"
-import {Event} from "./Event"
-import {Model} from "./Model"
+import chunk = require("lodash/chunk")
+import countBy = require("lodash/countBy")
+import each = require("lodash/each")
+import filter = require("lodash/filter")
+import find = require("lodash/find")
+import groupBy = require("lodash/groupBy")
+import isArray = require("lodash/isArray")
+import map = require("lodash/map")
+import reduce = require("lodash/reduce")
+import values = require("lodash/values")
+import { ICollection } from "../interfaces/ICollection"
+import { IModel } from "../interfaces/IModel"
+import { IPredicate } from "../interfaces/IPredicate"
+import { Event } from "./Event"
+import { Model } from "./Model"
 
-class Collection<T extends IModel> extends Event implements ICollection<T> {
+export class Collection<T extends IModel> extends Event implements ICollection<T> {
 
     private _models: { [key: string]: T | IModel } = {}
     private _uniqhash: string = "l_id"
 
-    constructor(array: any[] | T[] = [], hashParam: string = "l_id") {
+    constructor(array: Array<T | any> = [], hashParam: string = "l_id") {
         super()
         this._uniqhash = hashParam
         this._init(array)
 
     }
 
-    private _init(array: T[] | any[]) {
-        _.each(array, (object) => {
+    private _init(array: Array<T | any>): void {
+        each(array, (object) => {
             if (Model.isModel(object)) {
                 this._models[object.get(this._uniqhash)] = object
                 return
@@ -28,8 +37,8 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
         })
     }
 
-    private _clearCollection() {
-        Object.keys(this._models).forEach((key) => {
+    private _clearCollection(): void {
+        each(Object.keys(this._models), (key) => {
             delete this._models[key]
         })
     }
@@ -37,9 +46,10 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
     /**
      * Add Model to Collection
      * @param model
+     * @param needReset
      * @returns {boolean}
      */
-    public add(model: T | IModel, needReset = false) {
+    public add(model: T | IModel, needReset = false): boolean {
         if (Model.isModel(model)) {
             if (Event._isUndefined(this._models[model.get(this._uniqhash)])) {
                 this._models[model.get(this._uniqhash)] = model
@@ -59,7 +69,7 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
      * @param model
      * @returns {boolean}
      */
-    public remove(model: T | IModel) {
+    public remove(model: T | IModel): boolean {
         if (Model.isModel(model)) {
             if (!Event._isUndefined(this._models[model.get(this._uniqhash)])) {
                 delete this._models[model.get(this._uniqhash)]
@@ -75,14 +85,14 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
      * @param model
      * @returns {boolean}
      */
-    public has(model: T | IModel) {
+    public has(model: T | IModel): boolean {
         return !Event._isUndefined(this._models[model.get(this._uniqhash)])
     }
 
     /**
      * Clear Collection, events will be saving
      */
-    public clear() {
+    public clear(): void {
         this._clearCollection()
         this.trigger("clear")
     }
@@ -90,19 +100,19 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
     /**
      * Filtering collection by predicate
      * @param predicate
-     * @returns {S[]}
+     * @returns {Array}
      */
-    public filter(predicate: IPredicate): T[] {
-        return _.filter<T>(this.getAll(), predicate)
+    public filter(predicate: IPredicate): Array<T> {
+        return filter<T>(this.getAll(), predicate)
     }
 
     /**
      * Create new Array from Collection
      * @param predicate
-     * @returns {TResult[]}
+     * @returns {Array}
      */
-    public map(predicate: IPredicate): any[] {
-        return _.map(this.getAll(), predicate)
+    public map(predicate: IPredicate): Array<any> {
+        return map(this.getAll(), predicate)
     }
 
     /**
@@ -124,7 +134,7 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
      * @returns {undefined|S}
      */
     public find(predicate: IPredicate, startIndex: number = 0): T | undefined {
-        return _.find<T>(this.getAll(), predicate, startIndex)
+        return find<T>(this.getAll(), predicate, startIndex)
     }
 
     /**
@@ -133,43 +143,42 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
      * @param accum
      * @returns {{}|undefined|null}
      */
-    public reduce(predicate: IPredicate, accum: any = 0): any {
-        return _.reduce(this.getAll(), predicate, accum)
+    public reduce(predicate: IPredicate, accum: any = 0): {} | undefined | null {
+        return reduce(this.getAll(), predicate, accum)
     }
 
     /**
      * Get Array from Collection
-     * @returns {T[]}
+     * @returns {Array}
      */
-    public getAll(): T[] {
-        return _.values<T>(this._models)
+    public getAll(): Array<T> {
+        return values<T>(this._models)
     }
 
     /**
      * Iterate collection by predicate
      * @param predicate
-     * @returns {any}
      */
-    public each(predicate: IPredicate) {
-        return _.each(this.getAll(), predicate)
+    public each(predicate: IPredicate): void {
+        each(this.getAll(), predicate)
     }
 
     /**
      * Merge collection with array or another collection
      * @param collection
-     * @returns {any}
      */
-    public merge(collection: T[] | ICollection<T> | any[]) {
-        if (_.isArray(collection)) {
-            return _.each(collection, (object) => {
+    public merge(collection: Array<T | any>| ICollection<T>): void {
+        if (isArray(collection)) {
+            each(collection, (object) => {
                 if (Model.isModel(object)) {
                     return this.add(object)
                 }
                 const model = new Model<T>(object)
                 this.add(model, true)
             })
+            return
         }
-        _.each(collection.getAll(), (model) => {
+        each(collection.getAll(), (model) => {
             this.add(model, true)
         })
 
@@ -179,7 +188,7 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
      * Reset Collection with new Array of Model or JSON
      * @param array
      */
-    public reset(array: any[] | T[] = []) {
+    public reset(array: Array<T | any> = []): void {
         this._clearCollection()
         this._init(array)
         this.trigger("reset")
@@ -195,10 +204,10 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
 
     /**
      * Return JSOn from Collection
-     * @returns {any[]}
+     * @returns {Array}
      */
-    public toJSON(): any {
-        return _.map(this.getAll(), (el) => {
+    public toJSON(): Array<any> {
+        return map(this.getAll(), (el) => {
             return el.toJSON()
         })
     }
@@ -213,19 +222,19 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
 
     /**
      * Get Array from Collection
-     * @returns {T[]}
+     * @returns {Array}
      */
-    public toArray(): T[] {
+    public toArray(): Array<T> {
         return this.getAll()
     }
 
     /**
      * Chunk Array on size
      * @param size
-     * @returns {T[][]}
+     * @returns {Array<Array>}
      */
-    public chunk(size: number = 1): T[][] {
-        return _.chunk(this.getAll(), size)
+    public chunk(size: number = 1): Array<Array<T>> {
+        return chunk(this.getAll(), size)
     }
 
     /**
@@ -234,7 +243,7 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
      * @returns {Dictionary<number>}
      */
     public countBy(predicate: IPredicate): { [key: string]: number } {
-        return _.countBy(this.getAll(), predicate)
+        return countBy(this.getAll(), predicate)
     }
 
     /**
@@ -242,8 +251,8 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
      * @param predicate
      * @returns {Dictionary<({}|undefined|null)[]>}
      */
-    public groupBy(predicate: IPredicate): { [key: string]: T[] } {
-        return _.groupBy<T>(this.getAll(), predicate)
+    public groupBy(predicate: IPredicate): { [key: string]: Array<T> } {
+        return groupBy<T>(this.getAll(), predicate)
     }
 
     /**
@@ -255,10 +264,8 @@ class Collection<T extends IModel> extends Event implements ICollection<T> {
         this._destroyCollection()
     }
 
-    private _destroyCollection() {
+    private _destroyCollection(): void {
         delete this._models
     }
 
 }
-
-export {Collection}

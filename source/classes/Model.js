@@ -10,15 +10,17 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-var _ = require("lodash");
+var assign = require("lodash/assign");
+var clone = require("lodash/clone");
+var uniqueId = require("lodash/uniqueId");
 var Event_1 = require("./Event");
-var Model = (function (_super) {
+var Model = /** @class */ (function (_super) {
     __extends(Model, _super);
     function Model(obj) {
         if (obj === void 0) { obj = {}; }
         var _this = _super.call(this) || this;
         _this._model = {};
-        _this._model = _.assign({}, { l_id: _.uniqueId("lr_") }, obj);
+        _this._model = assign({}, { l_id: uniqueId("lr_") }, obj);
         return _this;
     }
     /**
@@ -65,7 +67,7 @@ var Model = (function (_super) {
      * @returns {{[p: string]: any}}
      */
     Model.prototype.toJSON = function () {
-        return _.clone(this._model);
+        return clone(this._model);
     };
     /**
      * Drop key from Model
@@ -88,7 +90,7 @@ var Model = (function (_super) {
         if (Model.isModel(object)) {
             object = object.toJSON();
         }
-        this._model = _.assign({}, object, { l_id: oldValue.l_id });
+        this._model = assign({}, object, { l_id: oldValue.l_id });
         this.trigger("reset", { value: this.toJSON(), oldValue: oldValue });
     };
     /**
