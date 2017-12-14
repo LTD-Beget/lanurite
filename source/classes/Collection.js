@@ -22,7 +22,7 @@ var reduce = require("lodash/reduce");
 var values = require("lodash/values");
 var Event_1 = require("./Event");
 var Model_1 = require("./Model");
-var Collection = /** @class */ (function (_super) {
+var Collection = (function (_super) {
     __extends(Collection, _super);
     function Collection(array, hashParam) {
         if (array === void 0) { array = []; }
@@ -248,6 +248,13 @@ var Collection = /** @class */ (function (_super) {
      */
     Collection.prototype.groupBy = function (predicate) {
         return groupBy(this.getAll(), predicate);
+    };
+    /**
+     * Create clone of original collection
+     * @returns {Collection<T extends IModel>}
+     */
+    Collection.prototype.clone = function () {
+        return new this.constructor(this.getAll());
     };
     /**
      * Destroy Collection

@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-var Event = /** @class */ (function () {
+var Event = (function () {
     function Event() {
         this._events = {};
     }
