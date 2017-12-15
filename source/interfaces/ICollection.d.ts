@@ -22,6 +22,7 @@ export interface ICollection<T extends IModel> {
     countBy(predicate: IPredicate): {
         [key: string]: number;
     };
+    clone(): ICollection<T>;
     groupBy(predicate: IPredicate): {
         [key: string]: Array<T>;
     };

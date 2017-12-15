@@ -126,6 +126,11 @@ export declare class Collection<T extends IModel> extends Event implements IColl
         [key: string]: Array<T>;
     };
     /**
+     * Create clone of original collection
+     * @returns {Collection<T extends IModel>}
+     */
+    clone(): Collection<T>;
+    /**
      * Destroy Collection
      */
     destroy(): void;

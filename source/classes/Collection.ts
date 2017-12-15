@@ -256,6 +256,14 @@ export class Collection<T extends IModel> extends Event implements ICollection<T
     }
 
     /**
+     * Create clone of original collection
+     * @returns {Collection<T extends IModel>}
+     */
+    public clone(): Collection<T> {
+        return new (this as any).constructor(this.getAll())
+    }
+
+    /**
      * Destroy Collection
      */
     public destroy(): void {

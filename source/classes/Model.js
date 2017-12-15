@@ -14,7 +14,7 @@ var assign = require("lodash/assign");
 var clone = require("lodash/clone");
 var uniqueId = require("lodash/uniqueId");
 var Event_1 = require("./Event");
-var Model = /** @class */ (function (_super) {
+var Model = (function (_super) {
     __extends(Model, _super);
     function Model(obj) {
         if (obj === void 0) { obj = {}; }
