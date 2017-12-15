@@ -10,6 +10,7 @@ import reduce = require("lodash/reduce")
 import values = require("lodash/values")
 import { ICollection } from "../interfaces/ICollection"
 import { IModel } from "../interfaces/IModel"
+import { IOptions } from "../interfaces/IOptions"
 import { IPredicate } from "../interfaces/IPredicate"
 import { Event } from "./Event"
 import { Model } from "./Model"
@@ -187,10 +188,14 @@ export class Collection<T extends IModel> extends Event implements ICollection<T
     /**
      * Reset Collection with new Array of Model or JSON
      * @param array
+     * @param options
      */
-    public reset(array: Array<T | any> = []): void {
+    public reset(array: Array<T | any> = [], options: IOptions = {}): void {
         this._clearCollection()
         this._init(array)
+        if (options.silent === true) {
+            return
+        }
         this.trigger("reset")
     }
 

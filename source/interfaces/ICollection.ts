@@ -1,4 +1,5 @@
 import { IModel } from "./IModel"
+import { IOptions } from "./IOptions"
 import { IPredicate } from "./IPredicate"
 
 export interface ICollection<T extends IModel> {
@@ -13,7 +14,7 @@ export interface ICollection<T extends IModel> {
     reduce(predicate: IPredicate, accum: any): any
     getById(id: string): T | IModel | null
     find(predicate: IPredicate, start: number): T | undefined
-    reset(array: Array<any> | Array<T>): void
+    reset(array: Array<any> | Array<T>, options?: IOptions): void
     getLength(): number
     each(predicate: IPredicate): void
     toJSON(): any
