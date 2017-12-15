@@ -187,11 +187,16 @@ var Collection = (function (_super) {
     /**
      * Reset Collection with new Array of Model or JSON
      * @param array
+     * @param options
      */
-    Collection.prototype.reset = function (array) {
+    Collection.prototype.reset = function (array, options) {
         if (array === void 0) { array = []; }
+        if (options === void 0) { options = {}; }
         this._clearCollection();
         this._init(array);
+        if (options.silent === true) {
+            return;
+        }
         this.trigger("reset");
     };
     /**

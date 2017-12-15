@@ -1,5 +1,6 @@
 import { ICollection } from "../interfaces/ICollection";
 import { IModel } from "../interfaces/IModel";
+import { IOptions } from "../interfaces/IOptions";
 import { IPredicate } from "../interfaces/IPredicate";
 import { Event } from "./Event";
 export declare class Collection<T extends IModel> extends Event implements ICollection<T> {
@@ -81,8 +82,9 @@ export declare class Collection<T extends IModel> extends Event implements IColl
     /**
      * Reset Collection with new Array of Model or JSON
      * @param array
+     * @param options
      */
-    reset(array?: Array<T | any>): void;
+    reset(array?: Array<T | any>, options?: IOptions): void;
     /**
      * Get Collection length
      * @returns {number}
