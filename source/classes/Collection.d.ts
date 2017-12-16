@@ -9,6 +9,7 @@ export declare class Collection<T extends IModel> extends Event implements IColl
     constructor(array?: Array<T | any>, hashParam?: string);
     private _init(array);
     private _clearCollection();
+    getUniqHash(): string;
     /**
      * Add Model to Collection
      * @param model
@@ -45,11 +46,11 @@ export declare class Collection<T extends IModel> extends Event implements IColl
      */
     map(predicate: IPredicate): Array<any>;
     /**
-     * Get Model by Id
-     * @param id
+     * Get Model by hash
+     * @param hash
      * @returns {any}
      */
-    getById(id: string): T | IModel;
+    getByHash(hash: string | number): T | IModel | null;
     /**
      * Find by predicate in Collection
      * @param predicate

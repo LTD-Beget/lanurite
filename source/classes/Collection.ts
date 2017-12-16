@@ -44,6 +44,10 @@ export class Collection<T extends IModel> extends Event implements ICollection<T
         })
     }
 
+    public getUniqHash(): string {
+        return this._uniqhash
+    }
+
     /**
      * Add Model to Collection
      * @param model
@@ -58,7 +62,7 @@ export class Collection<T extends IModel> extends Event implements ICollection<T
                 return true
             } else {
                 if (needReset) {
-                    this.getById(this._uniqhash).reset(model)
+                    this.getByHash(this._uniqhash).reset(model)
                 }
             }
         }
@@ -117,13 +121,13 @@ export class Collection<T extends IModel> extends Event implements ICollection<T
     }
 
     /**
-     * Get Model by Id
-     * @param id
+     * Get Model by hash
+     * @param hash
      * @returns {any}
      */
-    public getById(id: string): T | IModel {
-        if (!Event._isUndefined(this._models[id])) {
-            return this._models[id]
+    public getByHash(hash: string|number): T | IModel | null {
+        if (!Event._isUndefined(this._models[hash])) {
+            return this._models[hash]
         }
         return null
     }

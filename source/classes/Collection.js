@@ -22,7 +22,7 @@ var reduce = require("lodash/reduce");
 var values = require("lodash/values");
 var Event_1 = require("./Event");
 var Model_1 = require("./Model");
-var Collection = (function (_super) {
+var Collection = /** @class */ (function (_super) {
     __extends(Collection, _super);
     function Collection(array, hashParam) {
         if (array === void 0) { array = []; }
@@ -51,6 +51,9 @@ var Collection = (function (_super) {
             delete _this._models[key];
         });
     };
+    Collection.prototype.getUniqHash = function () {
+        return this._uniqhash;
+    };
     /**
      * Add Model to Collection
      * @param model
@@ -67,7 +70,7 @@ var Collection = (function (_super) {
             }
             else {
                 if (needReset) {
-                    this.getById(this._uniqhash).reset(model);
+                    this.getByHash(this._uniqhash).reset(model);
                 }
             }
         }
@@ -120,13 +123,13 @@ var Collection = (function (_super) {
         return map(this.getAll(), predicate);
     };
     /**
-     * Get Model by Id
-     * @param id
+     * Get Model by hash
+     * @param hash
      * @returns {any}
      */
-    Collection.prototype.getById = function (id) {
-        if (!Event_1.Event._isUndefined(this._models[id])) {
-            return this._models[id];
+    Collection.prototype.getByHash = function (hash) {
+        if (!Event_1.Event._isUndefined(this._models[hash])) {
+            return this._models[hash];
         }
         return null;
     };

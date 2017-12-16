@@ -15,10 +15,10 @@ export class Model<T extends IModels> extends Event implements IModel {
     }
 
     /**
-     * Return private models
-     * @returns {{[p: string]: any}}
+     * Return private model
+     * @returns {any}
      */
-    public getModels(): T {
+    public getModel(): T {
         return this._model
     }
 

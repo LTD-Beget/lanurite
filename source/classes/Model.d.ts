@@ -5,10 +5,10 @@ export declare class Model<T extends IModels> extends Event implements IModel {
     private _model;
     constructor(obj?: T);
     /**
-     * Return private models
-     * @returns {{[p: string]: any}}
+     * Return private model
+     * @returns {any}
      */
-    getModels(): T;
+    getModel(): T;
     /**
      * Get value by key
      * @param key

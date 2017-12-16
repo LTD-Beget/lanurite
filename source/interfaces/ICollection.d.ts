@@ -2,6 +2,7 @@ import { IModel } from "./IModel";
 import { IOptions } from "./IOptions";
 import { IPredicate } from "./IPredicate";
 export interface ICollection<T extends IModel> {
+    getUniqHash(): string;
     add(model: T | IModel): boolean;
     remove(model: T | IModel): boolean;
     clear(): void;
@@ -11,7 +12,7 @@ export interface ICollection<T extends IModel> {
     filter(predicate: IPredicate): Array<T>;
     map(predicate: IPredicate): Array<any>;
     reduce(predicate: IPredicate, accum: any): any;
-    getById(id: string): T | IModel | null;
+    getByHash(id: string | number): T | IModel | null;
     find(predicate: IPredicate, start: number): T | undefined;
     reset(array: Array<any> | Array<T>, options?: IOptions): void;
     getLength(): number;

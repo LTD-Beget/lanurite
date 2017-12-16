@@ -14,7 +14,7 @@ var assign = require("lodash/assign");
 var clone = require("lodash/clone");
 var uniqueId = require("lodash/uniqueId");
 var Event_1 = require("./Event");
-var Model = (function (_super) {
+var Model = /** @class */ (function (_super) {
     __extends(Model, _super);
     function Model(obj) {
         if (obj === void 0) { obj = {}; }
@@ -24,10 +24,10 @@ var Model = (function (_super) {
         return _this;
     }
     /**
-     * Return private models
-     * @returns {{[p: string]: any}}
+     * Return private model
+     * @returns {any}
      */
-    Model.prototype.getModels = function () {
+    Model.prototype.getModel = function () {
         return this._model;
     };
     /**
