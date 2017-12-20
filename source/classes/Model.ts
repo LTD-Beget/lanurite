@@ -10,9 +10,9 @@ export class Model<T extends IModels> extends Event implements IModel {
 
     protected _attributes: T = {} as T
 
-    constructor(obj: T = {} as T) {
+    constructor(object: T = {} as T) {
         super()
-        this._attributes = assign({}, {l_id: uniqueId("lr_")}, obj)
+        this._attributes = assign({}, {l_id: uniqueId("lr_")}, object)
     }
 
     /**
