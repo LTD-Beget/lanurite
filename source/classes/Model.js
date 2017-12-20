@@ -17,11 +17,11 @@ var uniqueId = require("lodash/uniqueId");
 var Event_1 = require("./Event");
 var Model = (function (_super) {
     __extends(Model, _super);
-    function Model(obj) {
-        if (obj === void 0) { obj = {}; }
+    function Model(object) {
+        if (object === void 0) { object = {}; }
         var _this = _super.call(this) || this;
         _this._attributes = {};
-        _this._attributes = assign({}, { l_id: uniqueId("lr_") }, obj);
+        _this._attributes = assign({}, { l_id: uniqueId("lr_") }, object);
         return _this;
     }
     /**

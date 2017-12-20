@@ -3,13 +3,12 @@ import { IModel } from "../interfaces/IModel";
 import { IOptions } from "../interfaces/IOptions";
 import { IPredicate } from "../interfaces/IPredicate";
 import { Event } from "./Event";
-import { Model } from "./Model";
 export declare class Collection<T extends IModel> extends Event implements ICollection<T> {
     protected _models: {
-        [key: string]: Model<T>;
+        [key: string]: T;
     };
     protected _uniqhash: string;
-    constructor(models?: Array<Model<T> | object>, hashParam?: string);
+    constructor(models?: Array<T | object>, hashParam?: string);
     private _clearCollection();
     /**
      * Add Model to Collection
@@ -17,20 +16,20 @@ export declare class Collection<T extends IModel> extends Event implements IColl
      * @param options
      * @returns {boolean}
      */
-    add(item: Model<T> | object, options?: IOptions): boolean;
+    add(item: T | object, options?: IOptions): boolean;
     /**
      * Remove Model from Collection
      * @param model
      * @param options
      * @returns {boolean}
      */
-    remove(model: Model<T>, options?: IOptions): boolean;
+    remove(model: T, options?: IOptions): boolean;
     /**
      * Check existing Model in Collection
      * @param model
      * @returns {boolean}
      */
-    has(model: Model<T>): boolean;
+    has(model: T): boolean;
     /**
      * Clear Collection, events will be saving
      */
@@ -40,7 +39,7 @@ export declare class Collection<T extends IModel> extends Event implements IColl
      * @param predicate
      * @returns {Array}
      */
-    filter(predicate: IPredicate): Array<Model<T>>;
+    filter(predicate: IPredicate): Array<T>;
     /**
      * Create new Array from Collection
      * @param predicate
@@ -50,16 +49,16 @@ export declare class Collection<T extends IModel> extends Event implements IColl
     /**
      * find Model by hash
      * @param hash
-     * @returns {Model<T>}
+     * @returns {T}
      */
-    findByHash(hash: string): Model<T> | null;
+    findByHash(hash: string): T | null;
     /**
      * Find by predicate in Collection
      * @param predicate
      * @param startIndex
-     * @returns {undefined|Model<T>}
+     * @returns {undefined|T}
      */
-    find(predicate: IPredicate, startIndex?: number): Model<T> | undefined;
+    find(predicate: IPredicate, startIndex?: number): T | undefined;
     /**
      * Reduce new Collection
      * @param predicate
@@ -71,7 +70,7 @@ export declare class Collection<T extends IModel> extends Event implements IColl
      * Get Array from Collection
      * @returns {Array}
      */
-    getAll(): Array<Model<T>>;
+    getAll(): Array<T>;
     /**
      * Iterate collection by predicate
      * @param predicate
@@ -88,7 +87,7 @@ export declare class Collection<T extends IModel> extends Event implements IColl
      * @param items
      * @param options
      */
-    reset(items?: Array<Model<T> | object>, options?: IOptions): void;
+    reset(items?: Array<T | object>, options?: IOptions): void;
     /**
      * Get Collection length
      * @returns {number}
@@ -103,13 +102,13 @@ export declare class Collection<T extends IModel> extends Event implements IColl
      * Get Array from Collection
      * @returns {Array}
      */
-    toArray(): Array<Model<T>>;
+    toArray(): Array<T>;
     /**
      * Chunk Array on size
      * @param size
      * @returns {Array<Array>}
      */
-    chunk(size?: number): Array<Array<Model<T>>>;
+    chunk(size?: number): Array<Array<T>>;
     /**
      * Count element by predicate
      * @param predicate
@@ -124,13 +123,13 @@ export declare class Collection<T extends IModel> extends Event implements IColl
      * @returns {Dictionary<({}|undefined|null)[]>}
      */
     groupBy(predicate: IPredicate): {
-        [key: string]: Array<Model<T>>;
+        [key: string]: Array<T>;
     };
     /**
      * Create clone of original collection
-     * @returns {Collection<Model<T>>}
+     * @returns {Collection<T>}
      */
-    clone(): Collection<Model<T>>;
+    clone(): Collection<T>;
     /**
      * Destroy Collection
      */

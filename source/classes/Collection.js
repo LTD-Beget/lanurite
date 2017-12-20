@@ -123,7 +123,7 @@ var Collection = (function (_super) {
     /**
      * find Model by hash
      * @param hash
-     * @returns {Model<T>}
+     * @returns {T}
      */
     Collection.prototype.findByHash = function (hash) {
         return !isUndefined(this._models[hash]) ? this._models[hash] : null;
@@ -132,7 +132,7 @@ var Collection = (function (_super) {
      * Find by predicate in Collection
      * @param predicate
      * @param startIndex
-     * @returns {undefined|Model<T>}
+     * @returns {undefined|T}
      */
     Collection.prototype.find = function (predicate, startIndex) {
         if (startIndex === void 0) { startIndex = 0; }
@@ -239,7 +239,7 @@ var Collection = (function (_super) {
     };
     /**
      * Create clone of original collection
-     * @returns {Collection<Model<T>>}
+     * @returns {Collection<T>}
      */
     Collection.prototype.clone = function () {
         return new this.constructor(this.getAll());

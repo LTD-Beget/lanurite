@@ -3,7 +3,7 @@ import { IModels } from "../interfaces/IModels";
 import { Event } from "./Event";
 export declare class Model<T extends IModels> extends Event implements IModel {
     protected _attributes: T;
-    constructor(obj?: T);
+    constructor(object?: T);
     /**
      * Return private attributes
      * @returns {object}

@@ -7,10 +7,10 @@ import { Collection } from "./Collection"
 import { Model } from "./Model"
 
 export class SortedCollection<T extends IModel> extends Collection<T> {
-    protected modelsArray: Array<Model<T>> = []
-    public comparator: (itemA: Model<T>, itemB: Model<T>) => number
+    protected modelsArray: Array<T> = []
+    public comparator: (itemA: T, itemB: T) => number
 
-    constructor(items: Array<Model<T>| object> = [], hashParam?: string) {
+    constructor(items: Array<T| object> = [], hashParam?: string) {
         super([], hashParam)
         if (isString(hashParam)) {
             this._uniqhash = hashParam
@@ -27,8 +27,8 @@ export class SortedCollection<T extends IModel> extends Collection<T> {
         }
     }
 
-    public add(item: Model<T> | object, options: IOptions = {}, sort: boolean = true): boolean {
-        const model = (item instanceof Model) ? item : new Model<T>(item as T)
+    public add(item: T | object, options: IOptions = {}, sort: boolean = true): boolean {
+        const model: T = (item instanceof Model) ? item : new Model(item as object) as any
         if (super.add(model), {silent: true}) {
             this.modelsArray.push(model)
             if (options.silent !== true) {
@@ -42,7 +42,7 @@ export class SortedCollection<T extends IModel> extends Collection<T> {
         return false
     }
 
-    public remove(model: Model<T>, options: IOptions = {}): boolean {
+    public remove(model: T, options: IOptions = {}): boolean {
         if (super.remove(model, {silent: true})) {
             const index = this.modelsArray.indexOf(model)
             if (index > -1) {
@@ -56,7 +56,7 @@ export class SortedCollection<T extends IModel> extends Collection<T> {
         return false
     }
 
-    public reset(items: Array<Model<T>| object> = [], options: IOptions = {}): void {
+    public reset(items: Array<T| object> = [], options: IOptions = {}): void {
         super.reset(items, {silent: true})
         this.modelsArray = super.getAll()
         this.trigger("reset")
@@ -70,7 +70,7 @@ export class SortedCollection<T extends IModel> extends Collection<T> {
         })
     }
 
-    public getAll(): Array<Model<T>> {
+    public getAll(): Array<T> {
         return this.modelsArray
     }
 
