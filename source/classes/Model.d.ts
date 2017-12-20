@@ -2,13 +2,13 @@ import { IModel } from "../interfaces/IModel";
 import { IModels } from "../interfaces/IModels";
 import { Event } from "./Event";
 export declare class Model<T extends IModels> extends Event implements IModel {
-    private _model;
+    protected _attributes: T;
     constructor(obj?: T);
     /**
-     * Return private models
-     * @returns {{[p: string]: any}}
+     * Return private attributes
+     * @returns {object}
      */
-    getModels(): T;
+    getAttributes(): T;
     /**
      * Get value by key
      * @param key
@@ -29,7 +29,7 @@ export declare class Model<T extends IModels> extends Event implements IModel {
     has(key: string): boolean;
     /**
      * Get JSON from Model
-     * @returns {{[p: string]: any}}
+     * @returns {object}
      */
     toJSON(): any;
     /**

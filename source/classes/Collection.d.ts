@@ -3,31 +3,34 @@ import { IModel } from "../interfaces/IModel";
 import { IOptions } from "../interfaces/IOptions";
 import { IPredicate } from "../interfaces/IPredicate";
 import { Event } from "./Event";
+import { Model } from "./Model";
 export declare class Collection<T extends IModel> extends Event implements ICollection<T> {
-    private _models;
-    private _uniqhash;
-    constructor(array?: Array<T | any>, hashParam?: string);
-    private _init(array);
+    protected _models: {
+        [key: string]: Model<T>;
+    };
+    protected _uniqhash: string;
+    constructor(models?: Array<Model<T> | object>, hashParam?: string);
     private _clearCollection();
     /**
      * Add Model to Collection
-     * @param model
-     * @param needReset
+     * @param item
+     * @param options
      * @returns {boolean}
      */
-    add(model: T | IModel, needReset?: boolean): boolean;
+    add(item: Model<T> | object, options?: IOptions): boolean;
     /**
      * Remove Model from Collection
      * @param model
+     * @param options
      * @returns {boolean}
      */
-    remove(model: T | IModel): boolean;
+    remove(model: Model<T>, options?: IOptions): boolean;
     /**
      * Check existing Model in Collection
      * @param model
      * @returns {boolean}
      */
-    has(model: T | IModel): boolean;
+    has(model: Model<T>): boolean;
     /**
      * Clear Collection, events will be saving
      */
@@ -37,7 +40,7 @@ export declare class Collection<T extends IModel> extends Event implements IColl
      * @param predicate
      * @returns {Array}
      */
-    filter(predicate: IPredicate): Array<T>;
+    filter(predicate: IPredicate): Array<Model<T>>;
     /**
      * Create new Array from Collection
      * @param predicate
@@ -45,18 +48,18 @@ export declare class Collection<T extends IModel> extends Event implements IColl
      */
     map(predicate: IPredicate): Array<any>;
     /**
-     * Get Model by Id
-     * @param id
-     * @returns {any}
+     * find Model by hash
+     * @param hash
+     * @returns {Model<T>}
      */
-    getById(id: string): T | IModel;
+    findByHash(hash: string): Model<T> | null;
     /**
      * Find by predicate in Collection
      * @param predicate
      * @param startIndex
-     * @returns {undefined|S}
+     * @returns {undefined|Model<T>}
      */
-    find(predicate: IPredicate, startIndex?: number): T | undefined;
+    find(predicate: IPredicate, startIndex?: number): Model<T> | undefined;
     /**
      * Reduce new Collection
      * @param predicate
@@ -68,7 +71,7 @@ export declare class Collection<T extends IModel> extends Event implements IColl
      * Get Array from Collection
      * @returns {Array}
      */
-    getAll(): Array<T>;
+    getAll(): Array<Model<T>>;
     /**
      * Iterate collection by predicate
      * @param predicate
@@ -76,15 +79,16 @@ export declare class Collection<T extends IModel> extends Event implements IColl
     each(predicate: IPredicate): void;
     /**
      * Merge collection with array or another collection
-     * @param collection
-     */
-    merge(collection: Array<T | any> | ICollection<T>): void;
-    /**
-     * Reset Collection with new Array of Model or JSON
-     * @param array
+     * @param items
      * @param options
      */
-    reset(array?: Array<T | any>, options?: IOptions): void;
+    merge(items: Array<T | object>, options?: IOptions): void;
+    /**
+     * Reset Collection with new Array of Model or JSON
+     * @param items
+     * @param options
+     */
+    reset(items?: Array<Model<T> | object>, options?: IOptions): void;
     /**
      * Get Collection length
      * @returns {number}
@@ -96,21 +100,16 @@ export declare class Collection<T extends IModel> extends Event implements IColl
      */
     toJSON(): Array<any>;
     /**
-     * Sort element with predicate
-     * @param predicate
-     */
-    sortBy(predicate: IPredicate): void;
-    /**
      * Get Array from Collection
      * @returns {Array}
      */
-    toArray(): Array<T>;
+    toArray(): Array<Model<T>>;
     /**
      * Chunk Array on size
      * @param size
      * @returns {Array<Array>}
      */
-    chunk(size?: number): Array<Array<T>>;
+    chunk(size?: number): Array<Array<Model<T>>>;
     /**
      * Count element by predicate
      * @param predicate
@@ -125,13 +124,13 @@ export declare class Collection<T extends IModel> extends Event implements IColl
      * @returns {Dictionary<({}|undefined|null)[]>}
      */
     groupBy(predicate: IPredicate): {
-        [key: string]: Array<T>;
+        [key: string]: Array<Model<T>>;
     };
     /**
      * Create clone of original collection
-     * @returns {Collection<T extends IModel>}
+     * @returns {Collection<Model<T>>}
      */
-    clone(): Collection<T>;
+    clone(): Collection<Model<T>>;
     /**
      * Destroy Collection
      */

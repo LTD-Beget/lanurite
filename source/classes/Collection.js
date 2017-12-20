@@ -10,13 +10,14 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
+var assign = require("lodash/assign");
 var chunk = require("lodash/chunk");
 var countBy = require("lodash/countBy");
 var each = require("lodash/each");
 var filter = require("lodash/filter");
 var find = require("lodash/find");
 var groupBy = require("lodash/groupBy");
-var isArray = require("lodash/isArray");
+var isUndefined = require("lodash/isUndefined");
 var map = require("lodash/map");
 var reduce = require("lodash/reduce");
 var values = require("lodash/values");
@@ -24,27 +25,16 @@ var Event_1 = require("./Event");
 var Model_1 = require("./Model");
 var Collection = (function (_super) {
     __extends(Collection, _super);
-    function Collection(array, hashParam) {
-        if (array === void 0) { array = []; }
+    function Collection(models, hashParam) {
+        if (models === void 0) { models = []; }
         if (hashParam === void 0) { hashParam = "l_id"; }
         var _this = _super.call(this) || this;
         _this._models = {};
         _this._uniqhash = "l_id";
         _this._uniqhash = hashParam;
-        _this._init(array);
+        _this.merge(models, { silent: true });
         return _this;
     }
-    Collection.prototype._init = function (array) {
-        var _this = this;
-        each(array, function (object) {
-            if (Model_1.Model.isModel(object)) {
-                _this._models[object.get(_this._uniqhash)] = object;
-                return;
-            }
-            var model = new Model_1.Model(object);
-            _this._models[model.get(_this._uniqhash)] = model;
-        });
-    };
     Collection.prototype._clearCollection = function () {
         var _this = this;
         each(Object.keys(this._models), function (key) {
@@ -53,38 +43,45 @@ var Collection = (function (_super) {
     };
     /**
      * Add Model to Collection
-     * @param model
-     * @param needReset
+     * @param item
+     * @param options
      * @returns {boolean}
      */
-    Collection.prototype.add = function (model, needReset) {
-        if (needReset === void 0) { needReset = false; }
-        if (Model_1.Model.isModel(model)) {
-            if (Event_1.Event._isUndefined(this._models[model.get(this._uniqhash)])) {
-                this._models[model.get(this._uniqhash)] = model;
+    Collection.prototype.add = function (item, options) {
+        if (options === void 0) { options = {}; }
+        var model = (item instanceof Model_1.Model) ? item : new Model_1.Model(item);
+        var hash = model.get(this._uniqhash);
+        var existModel = this.findByHash(hash);
+        if (!existModel) {
+            this._models[hash] = model;
+            if (options.silent !== true) {
                 this.trigger("add", model);
-                return true;
             }
-            else {
-                if (needReset) {
-                    this.getById(this._uniqhash).reset(model);
-                }
-            }
+            return true;
+        }
+        if (existModel && options.merge === true) {
+            existModel.reset(model);
         }
         return false;
     };
     /**
      * Remove Model from Collection
      * @param model
+     * @param options
      * @returns {boolean}
      */
-    Collection.prototype.remove = function (model) {
-        if (Model_1.Model.isModel(model)) {
-            if (!Event_1.Event._isUndefined(this._models[model.get(this._uniqhash)])) {
-                delete this._models[model.get(this._uniqhash)];
+    Collection.prototype.remove = function (model, options) {
+        if (options === void 0) { options = {}; }
+        if (!(model instanceof Model_1.Model)) {
+            throw new Error("model isn't instance of Model");
+        }
+        var hash = model.get(this._uniqhash);
+        if (this.findByHash(hash)) {
+            delete this._models[hash];
+            if (options.silent !== true) {
                 this.trigger("remove", model);
-                return true;
             }
+            return true;
         }
         return false;
     };
@@ -94,7 +91,11 @@ var Collection = (function (_super) {
      * @returns {boolean}
      */
     Collection.prototype.has = function (model) {
-        return !Event_1.Event._isUndefined(this._models[model.get(this._uniqhash)]);
+        if (!(model instanceof Model_1.Model)) {
+            throw new Error("model isn't instance of Model");
+        }
+        var hash = model.get(this._uniqhash);
+        return !!this.findByHash(hash);
     };
     /**
      * Clear Collection, events will be saving
@@ -120,21 +121,18 @@ var Collection = (function (_super) {
         return map(this.getAll(), predicate);
     };
     /**
-     * Get Model by Id
-     * @param id
-     * @returns {any}
+     * find Model by hash
+     * @param hash
+     * @returns {Model<T>}
      */
-    Collection.prototype.getById = function (id) {
-        if (!Event_1.Event._isUndefined(this._models[id])) {
-            return this._models[id];
-        }
-        return null;
+    Collection.prototype.findByHash = function (hash) {
+        return !isUndefined(this._models[hash]) ? this._models[hash] : null;
     };
     /**
      * Find by predicate in Collection
      * @param predicate
      * @param startIndex
-     * @returns {undefined|S}
+     * @returns {undefined|Model<T>}
      */
     Collection.prototype.find = function (predicate, startIndex) {
         if (startIndex === void 0) { startIndex = 0; }
@@ -166,38 +164,30 @@ var Collection = (function (_super) {
     };
     /**
      * Merge collection with array or another collection
-     * @param collection
+     * @param items
+     * @param options
      */
-    Collection.prototype.merge = function (collection) {
+    Collection.prototype.merge = function (items, options) {
         var _this = this;
-        if (isArray(collection)) {
-            each(collection, function (object) {
-                if (Model_1.Model.isModel(object)) {
-                    return _this.add(object);
-                }
-                var model = new Model_1.Model(object);
-                _this.add(model, true);
-            });
-            return;
-        }
-        each(collection.getAll(), function (model) {
-            _this.add(model, true);
+        if (options === void 0) { options = {}; }
+        options = assign(options, { merge: true });
+        items.forEach(function (item) {
+            _this.add(item, options);
         });
     };
     /**
      * Reset Collection with new Array of Model or JSON
-     * @param array
+     * @param items
      * @param options
      */
-    Collection.prototype.reset = function (array, options) {
-        if (array === void 0) { array = []; }
+    Collection.prototype.reset = function (items, options) {
+        if (items === void 0) { items = []; }
         if (options === void 0) { options = {}; }
         this._clearCollection();
-        this._init(array);
-        if (options.silent === true) {
-            return;
+        this.merge(items, { silent: true });
+        if (options.silent !== true) {
+            this.trigger("reset");
         }
-        this.trigger("reset");
     };
     /**
      * Get Collection length
@@ -214,13 +204,6 @@ var Collection = (function (_super) {
         return map(this.getAll(), function (el) {
             return el.toJSON();
         });
-    };
-    /**
-     * Sort element with predicate
-     * @param predicate
-     */
-    Collection.prototype.sortBy = function (predicate) {
-        this.reset(this.getAll().sort(predicate));
     };
     /**
      * Get Array from Collection
@@ -256,7 +239,7 @@ var Collection = (function (_super) {
     };
     /**
      * Create clone of original collection
-     * @returns {Collection<T extends IModel>}
+     * @returns {Collection<Model<T>>}
      */
     Collection.prototype.clone = function () {
         return new this.constructor(this.getAll());
