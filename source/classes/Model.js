@@ -12,6 +12,7 @@ var __extends = (this && this.__extends) || (function () {
 exports.__esModule = true;
 var assign = require("lodash/assign");
 var clone = require("lodash/clone");
+var isUndefined = require("lodash/isUndefined");
 var uniqueId = require("lodash/uniqueId");
 var Event_1 = require("./Event");
 var Model = (function (_super) {
@@ -19,16 +20,16 @@ var Model = (function (_super) {
     function Model(obj) {
         if (obj === void 0) { obj = {}; }
         var _this = _super.call(this) || this;
-        _this._model = {};
-        _this._model = assign({}, { l_id: uniqueId("lr_") }, obj);
+        _this._attributes = {};
+        _this._attributes = assign({}, { l_id: uniqueId("lr_") }, obj);
         return _this;
     }
     /**
-     * Return private models
-     * @returns {{[p: string]: any}}
+     * Return private attributes
+     * @returns {object}
      */
-    Model.prototype.getModels = function () {
-        return this._model;
+    Model.prototype.getAttributes = function () {
+        return this._attributes;
     };
     /**
      * Get value by key
@@ -36,7 +37,7 @@ var Model = (function (_super) {
      * @returns {any}
      */
     Model.prototype.get = function (key) {
-        return this._model[key];
+        return this._attributes[key];
     };
     /**
      * Set value on key in Models
@@ -46,11 +47,11 @@ var Model = (function (_super) {
     Model.prototype.set = function (key, value) {
         if (this.has(key)) {
             var oldValue = this.get(key);
-            this._model[key] = value;
+            this._attributes[key] = value;
             this.trigger("change", { name: key, value: value, oldValue: oldValue });
         }
         else {
-            this._model[key] = value;
+            this._attributes[key] = value;
             this.trigger("set", { name: key, value: value });
         }
     };
@@ -60,14 +61,14 @@ var Model = (function (_super) {
      * @returns {boolean}
      */
     Model.prototype.has = function (key) {
-        return !Event_1.Event._isUndefined(this._model[key]);
+        return !isUndefined(this._attributes[key]);
     };
     /**
      * Get JSON from Model
-     * @returns {{[p: string]: any}}
+     * @returns {object}
      */
     Model.prototype.toJSON = function () {
-        return clone(this._model);
+        return clone(this._attributes);
     };
     /**
      * Drop key from Model
@@ -76,7 +77,7 @@ var Model = (function (_super) {
      */
     Model.prototype.drop = function (key) {
         if (this.has(key)) {
-            delete this._model[key];
+            delete this._attributes[key];
             return true;
         }
         return false;
@@ -90,7 +91,7 @@ var Model = (function (_super) {
         if (Model.isModel(object)) {
             object = object.toJSON();
         }
-        this._model = assign({}, object, { l_id: oldValue.l_id });
+        this._attributes = assign({}, object, { l_id: oldValue.l_id });
         this.trigger("reset", { value: this.toJSON(), oldValue: oldValue });
     };
     /**
@@ -102,7 +103,7 @@ var Model = (function (_super) {
         this._destroyModel();
     };
     Model.prototype._destroyModel = function () {
-        delete this._model;
+        delete this._attributes;
     };
     Model.isModel = function (object) {
         return object instanceof Model;

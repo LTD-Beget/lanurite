@@ -1,5 +1,6 @@
 import assign = require("lodash/assign")
 import clone = require("lodash/clone")
+import isUndefined = require("lodash/isUndefined")
 import uniqueId = require("lodash/uniqueId")
 import { IModel } from "../interfaces/IModel"
 import { IModels } from "../interfaces/IModels"
@@ -7,19 +8,19 @@ import { Event } from "./Event"
 
 export class Model<T extends IModels> extends Event implements IModel {
 
-    private _model: T = {} as T
+    protected _attributes: T = {} as T
 
     constructor(obj: T = {} as T) {
         super()
-        this._model = assign({}, {l_id: uniqueId("lr_")}, obj)
+        this._attributes = assign({}, {l_id: uniqueId("lr_")}, obj)
     }
 
     /**
-     * Return private models
-     * @returns {{[p: string]: any}}
+     * Return private attributes
+     * @returns {object}
      */
-    public getModels(): T {
-        return this._model
+    public getAttributes(): T {
+        return this._attributes
     }
 
     /**
@@ -28,7 +29,7 @@ export class Model<T extends IModels> extends Event implements IModel {
      * @returns {any}
      */
     public get(key: string): any {
-        return this._model[key]
+        return this._attributes[key]
     }
 
     /**
@@ -39,10 +40,10 @@ export class Model<T extends IModels> extends Event implements IModel {
     public set(key: string, value: any): void {
         if (this.has(key)) {
             const oldValue = this.get(key)
-            this._model[key] = value
+            this._attributes[key] = value
             this.trigger("change", {name: key, value, oldValue})
         } else {
-            this._model[key] = value
+            this._attributes[key] = value
             this.trigger("set", {name: key, value})
         }
     }
@@ -53,15 +54,15 @@ export class Model<T extends IModels> extends Event implements IModel {
      * @returns {boolean}
      */
     public has(key: string): boolean {
-        return !Event._isUndefined(this._model[key])
+        return !isUndefined(this._attributes[key])
     }
 
     /**
      * Get JSON from Model
-     * @returns {{[p: string]: any}}
+     * @returns {object}
      */
     public toJSON(): any {
-        return clone(this._model)
+        return clone(this._attributes)
     }
 
     /**
@@ -71,7 +72,7 @@ export class Model<T extends IModels> extends Event implements IModel {
      */
     public drop(key: string): boolean {
         if (this.has(key)) {
-            delete this._model[key]
+            delete this._attributes[key]
             return true
         }
         return false
@@ -86,7 +87,7 @@ export class Model<T extends IModels> extends Event implements IModel {
         if (Model.isModel(object)) {
             object = object.toJSON()
         }
-        this._model = assign({}, object, {l_id: oldValue.l_id})
+        this._attributes = assign({}, object, {l_id: oldValue.l_id})
         this.trigger("reset", {value: this.toJSON(), oldValue})
     }
 
@@ -100,7 +101,7 @@ export class Model<T extends IModels> extends Event implements IModel {
     }
 
     private _destroyModel(): void {
-        delete this._model
+        delete this._attributes
     }
 
     public static isModel(object: any) {
