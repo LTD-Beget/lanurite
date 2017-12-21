@@ -245,7 +245,7 @@ var Collection = (function (_super) {
      * @returns {Collection<T>}
      */
     Collection.prototype.clone = function () {
-        return new this.constructor(this.getAll());
+        return new this.constructor(this.getAll(), this._uniqhash);
     };
     /**
      * Destroy Collection

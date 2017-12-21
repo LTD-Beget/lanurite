@@ -245,7 +245,7 @@ export class Collection<T extends IModel> extends Event implements ICollection<T
      * @returns {Collection<T>}
      */
     public clone(): Collection<T> {
-        return new (this as any).constructor(this.getAll())
+        return new (this as any).constructor(this.getAll(), this._uniqhash)
     }
 
     /**
