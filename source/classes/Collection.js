@@ -10,7 +10,6 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-var assign = require("lodash/assign");
 var chunk = require("lodash/chunk");
 var countBy = require("lodash/countBy");
 var each = require("lodash/each");
@@ -170,7 +169,6 @@ var Collection = (function (_super) {
     Collection.prototype.merge = function (items, options) {
         var _this = this;
         if (options === void 0) { options = {}; }
-        options = assign(options, { merge: true });
         items.forEach(function (item) {
             _this.add(item, options);
         });

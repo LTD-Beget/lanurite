@@ -28,7 +28,7 @@ export class SortedCollection<T extends IModel> extends Collection<T> {
 
     public add(item: T | object, options: IOptions = {}, sort: boolean = true): boolean {
         const model: T = (item instanceof Model) ? item : new Model(item as object) as any
-        if (super.add(model, {silent: true})) {
+        if (super.add(model, assign({}, options, {silent: true}))) {
             this.modelsArray.push(model)
             if (options.silent !== true) {
                 this.trigger("add", model)
@@ -62,7 +62,6 @@ export class SortedCollection<T extends IModel> extends Collection<T> {
     }
 
     public merge(items: Array<T | object>, options: IOptions = {}): void {
-        options = assign(options, {merge: true})
         items.forEach((item) => {
             this.add(item, options, false)
         })

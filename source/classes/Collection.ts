@@ -164,7 +164,6 @@ export class Collection<T extends IModel> extends Event implements ICollection<T
      * @param options
      */
     public merge(items: Array<T | object>, options: IOptions = {}): void {
-        options = assign(options, {merge: true})
         items.forEach((item) => {
             this.add(item, options)
         })
