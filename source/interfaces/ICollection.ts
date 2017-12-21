@@ -15,6 +15,7 @@ export interface ICollection<T extends IModel> {
     findByHash(hash: string): T | null
     find(predicate: IPredicate, start: number): T | undefined
     reset(array: Array<T | object>, options?: IOptions): void
+    getHashName(): string
     getLength(): number
     each(predicate: IPredicate): void
     toJSON(): any

@@ -1,5 +1,4 @@
-import { IModel } from "../interfaces/IModel";
-import { IOptions } from "../interfaces/IOptions";
+import { IModel, IOptions } from "../interfaces";
 import { Collection } from "./Collection";
 export declare class SortedCollection<T extends IModel> extends Collection<T> {
     protected modelsArray: Array<T>;

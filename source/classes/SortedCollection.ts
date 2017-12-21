@@ -1,8 +1,7 @@
 import assign = require("lodash/assign")
 import isFunction = require("lodash/isFunction")
 import isString = require("lodash/isString")
-import { IModel } from "../interfaces/IModel"
-import { IOptions } from "../interfaces/IOptions"
+import { IModel, IOptions } from "../interfaces"
 import { Collection } from "./Collection"
 import { Model } from "./Model"
 
@@ -29,7 +28,7 @@ export class SortedCollection<T extends IModel> extends Collection<T> {
 
     public add(item: T | object, options: IOptions = {}, sort: boolean = true): boolean {
         const model: T = (item instanceof Model) ? item : new Model(item as object) as any
-        if (super.add(model), {silent: true}) {
+        if (super.add(model, {silent: true})) {
             this.modelsArray.push(model)
             if (options.silent !== true) {
                 this.trigger("add", model)
@@ -57,17 +56,17 @@ export class SortedCollection<T extends IModel> extends Collection<T> {
     }
 
     public reset(items: Array<T| object> = [], options: IOptions = {}): void {
+        this.modelsArray = []
         super.reset(items, {silent: true})
-        this.modelsArray = super.getAll()
         this.trigger("reset")
-        this.sort()
     }
 
     public merge(items: Array<T | object>, options: IOptions = {}): void {
         options = assign(options, {merge: true})
         items.forEach((item) => {
-            this.add(item, options)
+            this.add(item, options, false)
         })
+        this.sort(options)
     }
 
     public getAll(): Array<T> {

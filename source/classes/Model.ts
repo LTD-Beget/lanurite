@@ -2,8 +2,7 @@ import assign = require("lodash/assign")
 import clone = require("lodash/clone")
 import isUndefined = require("lodash/isUndefined")
 import uniqueId = require("lodash/uniqueId")
-import { IModel } from "../interfaces/IModel"
-import { IModels } from "../interfaces/IModels"
+import { IModel, IModels } from "../interfaces"
 import { Event } from "./Event"
 
 export class Model<T extends IModels> extends Event implements IModel {

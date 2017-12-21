@@ -32,7 +32,7 @@
       "double",
       "avoid-escape"
     ],
-    "eofline": false,
+    "eofline": true,
     "variable-name": [
       true,
       "allow-leading-underscore",
