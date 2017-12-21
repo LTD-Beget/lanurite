@@ -1,5 +1,4 @@
-import { IEvent } from "../interfaces/IEvent"
-import { IHandler } from "../interfaces/IHandler"
+import { IEvent, IHandler } from "../interfaces"
 export class Event implements IEvent {
 
     protected _events: { [event: string]: Array<IHandler> } = {}

@@ -189,6 +189,9 @@ var Collection = (function (_super) {
             this.trigger("reset");
         }
     };
+    Collection.prototype.getHashName = function () {
+        return this._uniqhash;
+    };
     /**
      * Get Collection length
      * @returns {number}

@@ -1,7 +1,4 @@
-import { ICollection } from "../interfaces/ICollection";
-import { IModel } from "../interfaces/IModel";
-import { IOptions } from "../interfaces/IOptions";
-import { IPredicate } from "../interfaces/IPredicate";
+import { ICollection, IModel, IOptions, IPredicate } from "../interfaces";
 import { Event } from "./Event";
 export declare class Collection<T extends IModel> extends Event implements ICollection<T> {
     protected _models: {
@@ -88,6 +85,7 @@ export declare class Collection<T extends IModel> extends Event implements IColl
      * @param options
      */
     reset(items?: Array<T | object>, options?: IOptions): void;
+    getHashName(): string;
     /**
      * Get Collection length
      * @returns {number}

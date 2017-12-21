@@ -9,10 +9,7 @@ import isUndefined = require("lodash/isUndefined")
 import map = require("lodash/map")
 import reduce = require("lodash/reduce")
 import values = require("lodash/values")
-import { ICollection } from "../interfaces/ICollection"
-import { IModel } from "../interfaces/IModel"
-import { IOptions } from "../interfaces/IOptions"
-import { IPredicate } from "../interfaces/IPredicate"
+import { ICollection, IModel, IOptions, IPredicate } from "../interfaces"
 import { Event } from "./Event"
 import { Model } from "./Model"
 
@@ -184,6 +181,10 @@ export class Collection<T extends IModel> extends Event implements ICollection<T
         if (options.silent !== true) {
             this.trigger("reset")
         }
+    }
+
+    public getHashName(): string {
+        return this._uniqhash
     }
 
     /**

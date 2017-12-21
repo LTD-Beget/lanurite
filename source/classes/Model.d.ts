@@ -1,5 +1,4 @@
-import { IModel } from "../interfaces/IModel";
-import { IModels } from "../interfaces/IModels";
+import { IModel, IModels } from "../interfaces";
 import { Event } from "./Event";
 export declare class Model<T extends IModels> extends Event implements IModel {
     protected _attributes: T;
