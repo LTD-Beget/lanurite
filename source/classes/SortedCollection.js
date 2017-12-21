@@ -40,7 +40,7 @@ var SortedCollection = (function (_super) {
         if (options === void 0) { options = {}; }
         if (sort === void 0) { sort = true; }
         var model = (item instanceof Model_1.Model) ? item : new Model_1.Model(item);
-        if (_super.prototype.add.call(this, model, { silent: true })) {
+        if (_super.prototype.add.call(this, model, assign({}, options, { silent: true }))) {
             this.modelsArray.push(model);
             if (options.silent !== true) {
                 this.trigger("add", model);
@@ -76,7 +76,6 @@ var SortedCollection = (function (_super) {
     SortedCollection.prototype.merge = function (items, options) {
         var _this = this;
         if (options === void 0) { options = {}; }
-        options = assign(options, { merge: true });
         items.forEach(function (item) {
             _this.add(item, options, false);
         });
