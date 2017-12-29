@@ -31,10 +31,11 @@ var Event = (function () {
      * @param handler
      */
     Event.prototype.off = function (eventName, handler) {
-        if (handler && handler.name && handler.name.length) {
-            this._events[eventName] = this._events[eventName].filter(function (callback) {
-                return callback.name !== handler.name;
-            });
+        if (handler) {
+            var index = this._events[eventName].indexOf(handler);
+            if (index > -1) {
+                this._events[eventName].splice(index, 1);
+            }
             return;
         }
         delete this._events[eventName];
