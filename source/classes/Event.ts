@@ -31,10 +31,11 @@ export class Event implements IEvent {
      * @param handler
      */
     public off(eventName: string, handler?: IHandler): void {
-        if (handler && handler.name && handler.name.length) {
-            this._events[eventName] = this._events[eventName].filter((callback) => {
-                return callback.name !== handler.name
-            })
+        if (handler) {
+            const index = this._events[eventName].indexOf(handler)
+            if (index > -1) {
+                this._events[eventName].splice(index, 1)
+            }
             return
         }
         delete this._events[eventName]
