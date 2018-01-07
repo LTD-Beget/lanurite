@@ -30,15 +30,29 @@ export class Event implements IEvent {
      * @param eventName
      * @param handler
      */
-    public off(eventName: string, handler?: IHandler): void {
-        if (handler) {
-            const index = this._events[eventName].indexOf(handler)
-            if (index > -1) {
-                this._events[eventName].splice(index, 1)
-            }
-            return
+    public off(eventName: string | Array<string>, handler?: IHandler): void {
+        let events: Array<string> = []
+        if (Array.isArray(eventName)) {
+            events = events.concat(eventName)
+        } else {
+            events.push(eventName)
         }
-        delete this._events[eventName]
+        if (handler) {
+            return events.forEach((event) => {
+
+                const index = this._events[event].indexOf(handler)
+                if (index > -1) {
+                    this._events[event].splice(index, 1)
+                }
+                if (!this._events[event].length) {
+                    delete this._events[event]
+                }
+
+            })
+        }
+        events.forEach((event) => {
+            delete this._events[event]
+        })
     }
 
     /**
