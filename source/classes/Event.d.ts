@@ -15,7 +15,7 @@ export declare class Event implements IEvent {
      * @param eventName
      * @param handler
      */
-    off(eventName: string, handler?: IHandler): void;
+    off(eventName: string | Array<string>, handler?: IHandler): void;
     /**
      * Trigger Event with Param
      * @param eventName
