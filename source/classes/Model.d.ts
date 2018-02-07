@@ -1,4 +1,4 @@
-import { IModel, IModels } from "../interfaces";
+import { IModel, IModels, IOptions } from "../interfaces";
 import { Event } from "./Event";
 export declare class Model<T extends IModels> extends Event implements IModel {
     protected _attributes: T;
@@ -40,8 +40,9 @@ export declare class Model<T extends IModels> extends Event implements IModel {
     /**
      * Reset Model by another value or Model
      * @param object
+     * @param options
      */
-    reset(object: T): void;
+    reset(object: T, options?: IOptions): void;
     /**
      * Destroy Model
      */

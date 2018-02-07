@@ -2,7 +2,7 @@ import assign = require("lodash/assign")
 import clone = require("lodash/clone")
 import isUndefined = require("lodash/isUndefined")
 import uniqueId = require("lodash/uniqueId")
-import { IModel, IModels } from "../interfaces"
+import { IModel, IModels, IOptions } from "../interfaces"
 import { Event } from "./Event"
 
 export class Model<T extends IModels> extends Event implements IModel {
@@ -80,14 +80,17 @@ export class Model<T extends IModels> extends Event implements IModel {
     /**
      * Reset Model by another value or Model
      * @param object
+     * @param options
      */
-    public reset(object: T): void {
+    public reset(object: T, options: IOptions = {}): void {
         const oldValue = this.toJSON()
         if (Model.isModel(object)) {
             object = object.toJSON()
         }
         this._attributes = assign({}, object, {l_id: oldValue.l_id})
-        this.trigger("reset", {value: this.toJSON(), oldValue})
+        if (options.silent !== true) {
+            this.trigger("reset", {value: this.toJSON(), oldValue})
+        }
     }
 
     /**
