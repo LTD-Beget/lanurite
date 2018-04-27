@@ -26,7 +26,7 @@
   "dependencies": {
     "lodash": "4.17.4",
     "typescript": "2.5.0",
-    "@types/lodash": "4.14.74"
+    "@types/lodash": "4.14.105"
   },
   "devDependencies": {
     "ts-loader": "2.3.3",
