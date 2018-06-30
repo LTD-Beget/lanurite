@@ -9,7 +9,7 @@ export declare class Event implements IEvent {
      * @param handler
      */
     on(eventsName: string | Array<string>, handler: IHandler): void;
-    private _createEvent(event, handler);
+    private _createEvent;
     /**
      * Remove handler from Event
      * @param eventName

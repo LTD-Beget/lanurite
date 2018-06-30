@@ -1,15 +1,15 @@
 {
   "compilerOptions": {
+    "outDir": "./",
+    "noImplicitAny": true,
     "module": "commonjs",
     "declaration": true,
-    "sourceMap": true,
-    "allowSyntheticDefaultImports": true
+    "sourceMap": true
   },
-  "include": [
-    "source/**/*.ts"
-  ],
   "exclude": [
-    "node_modules",
-    "dist"
+    "node_modules"
+  ],
+  "include": [
+    "src/**/*.ts"
   ]
 }

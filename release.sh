@@ -4,16 +4,13 @@ set -e
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
 echo "=> Check new verison by TSLint"
-tslint 'source/**/*.ts' --exclude '**/*.d.ts'
+tslint "source/**/*.ts" --exclude "**/*.d.ts"
 
 echo "=> Upgrade version"
 VERSION=$(npm version --no-git-tag-version patch)
 
-echo "=> Build ${VERSION} d.ts"
-tsc
-
 echo "=> Build ${VERSION} with webpack"
-webpack
+npm build
 
 echo "=> Commit all changes in ${VERSION}"
 git add --all && git commit -m "changes ${VERSION}"
