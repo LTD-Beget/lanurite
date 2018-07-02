@@ -47,6 +47,6 @@ export declare class Model<T extends IModels> extends Event implements IModel {
      * Destroy Model
      */
     destroy(): void;
-    private _destroyModel();
+    private _destroyModel;
     static isModel(object: any): boolean;
 }

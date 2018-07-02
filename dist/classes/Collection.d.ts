@@ -6,7 +6,7 @@ export declare class Collection<T extends IModel> extends Event implements IColl
     };
     protected _uniqhash: string;
     constructor(models?: Array<T | object>, hashParam?: string);
-    private _clearCollection();
+    private _clearCollection;
     /**
      * Add Model to Collection
      * @param item
@@ -132,5 +132,5 @@ export declare class Collection<T extends IModel> extends Event implements IColl
      * Destroy Collection
      */
     destroy(): void;
-    private _destroyCollection();
+    private _destroyCollection;
 }

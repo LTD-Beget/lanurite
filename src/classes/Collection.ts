@@ -1,4 +1,3 @@
-import assign = require("lodash/assign")
 import chunk = require("lodash/chunk")
 import countBy = require("lodash/countBy")
 import each = require("lodash/each")
