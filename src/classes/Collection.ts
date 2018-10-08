@@ -8,7 +8,7 @@ import isUndefined = require("lodash/isUndefined")
 import map = require("lodash/map")
 import reduce = require("lodash/reduce")
 import values = require("lodash/values")
-import { ICollection, IModel, IOptions, IPredicate } from "../interfaces"
+import { ICollection, IModel, IOptions, IPredicate, IReducePredicate } from "../interfaces"
 import { Event } from "./Event"
 import { Model } from "./Model"
 
@@ -133,12 +133,12 @@ export class Collection<T extends IModel> extends Event implements ICollection<T
 
     /**
      * Reduce new Collection
-     * @param predicate
-     * @param accum
-     * @returns {{}|undefined|null}
+     * @param callback
+     * @param accumulator
+     * @returns {TResult|undefined}
      */
-    public reduce(predicate: IPredicate, accum: any = 0): {} | undefined | null {
-        return reduce(this.getAll(), predicate, accum)
+    public reduce<TResult>(callback: IReducePredicate<T, TResult>, accumulator: TResult): TResult | undefined {
+        return reduce(this.getAll(), callback, accumulator)
     }
 
     /**
