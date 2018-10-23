@@ -1,4 +1,4 @@
-import { ICollection, IModel, IOptions, IPredicate } from "../interfaces";
+import { ICollection, IModel, IOptions, IPredicate, IReducePredicate } from "../interfaces";
 import { Event } from "./Event";
 export declare class Collection<T extends IModel> extends Event implements ICollection<T> {
     protected _models: {
@@ -58,11 +58,11 @@ export declare class Collection<T extends IModel> extends Event implements IColl
     find(predicate: IPredicate, startIndex?: number): T | undefined;
     /**
      * Reduce new Collection
-     * @param predicate
-     * @param accum
-     * @returns {{}|undefined|null}
+     * @param callback
+     * @param accumulator
+     * @returns {TResult|undefined}
      */
-    reduce(predicate: IPredicate, accum?: any): {} | undefined | null;
+    reduce<TResult>(callback: IReducePredicate<T, TResult>, accumulator: TResult): TResult | undefined;
     /**
      * Get Array from Collection
      * @returns {Array}
